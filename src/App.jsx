@@ -1,16 +1,15 @@
 import { useState } from 'react';
 import {Button,Layout , theme} from 'antd';
 import {MenuUnfoldOutlined , MenuFoldOutlined} from '@ant-design/icons';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Logo from  './components/Logo';
 import MenuList from  './components/MenuList';
 import ToggleThemeButton from  './components/ToggleThemeButton';
-import { Box, Heading } from "@chakra-ui/react";
+// import { Box, Heading } from "@chakra-ui/react";
 // import Home from "./components/Home";
 import Matiere from "./components/Matiere/MatiereTable";
 import Destination from "./components/Destination/DestinationTable";
 import PointEchantillonage from "./components/PointEchantillonage/PointEchantillonageTable";
-
 
 
 
@@ -22,6 +21,7 @@ import CPZA55_TempsPrise from "./components/Cement/CPZA55/PhaseTempsPriseTable";
 import CPZA55_Proportion from "./components/Cement/CPZA55/ProportionTable";
 import CPZA55_Physique from "./components/Cement/CPZA55/ResultatAnalysePhysiqueTable";
 import CPZA55_Xrf from "./components/Cement/CPZA55/XrfTable";
+import CPZA55_Xrd from "./components/Cement/CPZA55/XrdTable";
 {/* ******************************************************************************************************************** */}
 
 
@@ -33,6 +33,7 @@ import PMES_TempsPrise from "./components/Cement/PMES/PhaseTempsPriseTable";
 import PMES_Proportion from "./components/Cement/PMES/ProportionTable";
 import PMES_Physique from "./components/Cement/PMES/ResultatAnalysePhysiqueTable";
 import PMES_Xrf from "./components/Cement/PMES/XrfTable";
+import PMES_Xrd from "./components/Cement/PMES/XrdTable";
 {/* ******************************************************************************************************************** */}
 
 
@@ -44,6 +45,7 @@ import PERFECTO_TempsPrise from "./components/Cement/PERFECTO/PhaseTempsPriseTab
 import PERFECTO_Proportion from "./components/Cement/PERFECTO/ProportionTable";
 import PERFECTO_Physique from "./components/Cement/PERFECTO/ResultatAnalysePhysiqueTable";
 import PERFECTO_Xrf from "./components/Cement/PERFECTO/XrfTable";
+import PERFECTO_Xrd from "./components/Cement/PERFECTO/XrdTable";
 {/* ******************************************************************************************************************** */}
 
 
@@ -55,6 +57,7 @@ import PMVC_TempsPrise from "./components/Cement/PMVC/PhaseTempsPriseTable";
 import PMVC_Proportion from "./components/Cement/PMVC/ProportionTable";
 import PMVC_Physique from "./components/Cement/PMVC/ResultatAnalysePhysiqueTable";
 import PMVC_Xrf from "./components/Cement/PMVC/XrfTable";
+import PMVC_Xrd from "./components/Cement/PMVC/XrdTable";
 {/* ******************************************************************************************************************** */}
 
 
@@ -66,6 +69,7 @@ import CPJ35_TempsPrise from "./components/Cement/CPJ35/PhaseTempsPriseTable";
 import CPJ35_Proportion from "./components/Cement/CPJ35/ProportionTable";
 import CPJ35_Physique from "./components/Cement/CPJ35/ResultatAnalysePhysiqueTable";
 import CPJ35_Xrf from "./components/Cement/CPJ35/XrfTable";
+import CPJ35_Xrd from "./components/Cement/CPJ35/XrdTable";
 {/* ******************************************************************************************************************** */}
 
 {/* ******************************************************************************************************************** */}
@@ -76,6 +80,7 @@ import J35_TempsPrise from "./components/Cement/J35/PhaseTempsPriseTable";
 import J35_Proportion from "./components/Cement/J35/ProportionTable";
 import J35_Physique from "./components/Cement/J35/ResultatAnalysePhysiqueTable";
 import J35_Xrf from "./components/Cement/J35/XrfTable";
+import J35_Xrd from "./components/Cement/J35/XrdTable";
 {/* ******************************************************************************************************************** */}
 
 {/* ******************************************************************************************************************** */}
@@ -86,6 +91,7 @@ import J45_TempsPrise from "./components/Cement/J45/PhaseTempsPriseTable";
 import J45_Proportion from "./components/Cement/J45/ProportionTable";
 import J45_Physique from "./components/Cement/J45/ResultatAnalysePhysiqueTable";
 import J45_Xrf from "./components/Cement/J45/XrfTable";
+import J45_Xrd from "./components/Cement/J45/XrdTable";
 {/* ******************************************************************************************************************** */}
 
 {/* ******************************************************************************************************************** */}
@@ -96,9 +102,11 @@ import J55_TempsPrise from "./components/Cement/J55/PhaseTempsPriseTable";
 import J55_Proportion from "./components/Cement/J55/ProportionTable";
 import J55_Physique from "./components/Cement/J55/ResultatAnalysePhysiqueTable";
 import J55_Xrf from "./components/Cement/J55/XrfTable";
+import J55_Xrd from "./components/Cement/J55/XrdTable";
 {/* ******************************************************************************************************************** */}
 
-import TaskTable from "./components/TaskTable"
+
+// import TaskTable from "./components/TaskTable"
 
 const {Header, Sider,Content} = Layout;
 function App() {
@@ -145,7 +153,6 @@ function App() {
                 <Route path="/matiere" element={<Matiere />} />
                 <Route path="/destination" element={<Destination />} />
                 <Route path="/point_echantillonage" element={<PointEchantillonage />} />
-
 {/* ******************************************************************************************************************** */}
                 <Route path="/pmes" element={<PMES />} />
                 <Route path="/pmes_chimique" element={<PMES_Chimique />} />
@@ -154,6 +161,7 @@ function App() {
                 <Route path="/pmes_proportion" element={<PMES_Proportion />} />
                 <Route path="/pmes_physique" element={<PMES_Physique />} />
                 <Route path="/pmes_xrf" element={<PMES_Xrf />} />
+                <Route path="/pmes_xrd" element={<PMES_Xrd />} />
 {/* ******************************************************************************************************************** */}
 
 {/* ******************************************************************************************************************** */}
@@ -164,6 +172,7 @@ function App() {
                 <Route path="/cpza55_proportion" element={<CPZA55_Proportion />} />
                 <Route path="/cpza55_physique" element={<CPZA55_Physique />} />
                 <Route path="/cpza55_xrf" element={<CPZA55_Xrf />} />
+                <Route path="/cpza55_xrd" element={<CPZA55_Xrd />} />
 {/* ******************************************************************************************************************** */}
 
 {/* ******************************************************************************************************************** */}
@@ -174,6 +183,7 @@ function App() {
                 <Route path="/perfecto_proportion" element={<PERFECTO_Proportion />} />
                 <Route path="/perfecto_physique" element={<PERFECTO_Physique />} />
                 <Route path="/perfecto_xrf" element={<PERFECTO_Xrf />} />
+                <Route path="/perfecto_xrd" element={<PERFECTO_Xrd />} />
 {/* ******************************************************************************************************************** */}
 
 {/* ******************************************************************************************************************** */}
@@ -184,6 +194,7 @@ function App() {
                 <Route path="/pmvc_proportion" element={<PMVC_Proportion />} />
                 <Route path="/pmvc_physique" element={<PMVC_Physique />} />
                 <Route path="/pmvc_xrf" element={<PMVC_Xrf />} />
+                <Route path="/pmvc_xrd" element={<PMVC_Xrd />} />
 {/* ******************************************************************************************************************** */}
                 
 {/* ******************************************************************************************************************** */}
@@ -194,6 +205,7 @@ function App() {
                 <Route path="/cpj35_proportion" element={<CPJ35_Proportion />} />
                 <Route path="/cpj35_physique" element={<CPJ35_Physique />} />
                 <Route path="/cpj35_xrf" element={<CPJ35_Xrf />} />
+                <Route path="/cpj35_xrd" element={<CPJ35_Xrd />} />
 {/* ******************************************************************************************************************** */}
                 
 {/* ******************************************************************************************************************** */}
@@ -204,6 +216,7 @@ function App() {
                 <Route path="/j35_proportion" element={<J35_Proportion />} />
                 <Route path="/j35_physique" element={<J35_Physique />} />
                 <Route path="/j35_xrf" element={<J35_Xrf />} />
+                <Route path="/j35_xrd" element={<J35_Xrd />} />
 {/* ******************************************************************************************************************** */}
 
 {/* ******************************************************************************************************************** */}
@@ -214,6 +227,7 @@ function App() {
                 <Route path="/j45_proportion" element={<J45_Proportion />} />
                 <Route path="/j45_physique" element={<J45_Physique />} />
                 <Route path="/j45_xrf" element={<J45_Xrf />} />
+                <Route path="/j45_xrd" element={<J45_Xrd />} />
 {/* ******************************************************************************************************************** */}
 
 {/* ******************************************************************************************************************** */}
@@ -224,6 +238,7 @@ function App() {
                 <Route path="/j55_proportion" element={<J55_Proportion />} />
                 <Route path="/j55_physique" element={<J55_Physique />} />
                 <Route path="/j55_xrf" element={<J55_Xrf />} />
+                <Route path="/j55_xrd" element={<J55_Xrd />} />
 {/* ******************************************************************************************************************** */}
                
                 </Routes>

@@ -46,6 +46,11 @@ const App = () => (
             href: '/cpza55_xrf',
             title: 'Analyse XRF',
           },
+          {
+            key: 'cpza55_xrd',
+            href: '/cpza55_xrd',
+            title: 'Analyse XR',
+          },
         ]}
       />
     </div>

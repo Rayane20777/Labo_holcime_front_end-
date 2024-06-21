@@ -46,6 +46,11 @@ const App = () => (
             href: "/j35_xrf",
             title: "Analyse XRF",
           },
+          {
+            key: "j35_xrd",
+            href: "/j35_xrd",
+            title: "Analyse XRD",
+          },
         ]}
       />
     </div>

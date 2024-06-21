@@ -1,19 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-// import { makeData, Person } from './makeData';
 import { Box, Text } from "@chakra-ui/react";
 import { format } from 'date-fns';
 import {
-
-  // flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-// import Filters from "./Filters";
-// import SortIcon from "../icons/SortIcon";
 import EditableCell from "../../EditableCell";
 import DataTable from "../../DataTable";
 import Anchor from "./Anchor";

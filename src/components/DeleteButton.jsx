@@ -1,13 +1,8 @@
-import { Box, Button } from "@chakra-ui/react";
+import {  Button } from "@chakra-ui/react";
 import { DeleteOutlined } from "@ant-design/icons";
 
 const DeleteButton = ({ onClick }) => (
-    <Box
-      style={{
-        width:"full",
-        display:"flex",
-        alignItems:"end"
-      }}>
+
       <Button 
       style={{
         background: "transparent", 
@@ -22,7 +17,6 @@ const DeleteButton = ({ onClick }) => (
     >
       <DeleteOutlined />
     </Button>
-  </Box>
 );
 
 export default DeleteButton;

@@ -46,6 +46,11 @@ const App = () => (
             href: '/pmvc_xrf',
             title: 'Analyse XRF',
           },
+          {
+            key: 'pmvc_xrd',
+            href: '/pmvc_xrd',
+            title: 'Analyse XRD',
+          },
         ]}
       />
     </div>

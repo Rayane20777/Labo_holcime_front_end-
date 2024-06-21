@@ -46,6 +46,11 @@ const App = () => (
             href: "/cpj35_xrf",
             title: "Analyse XRF",
           },
+          {
+            key: "cpj35_xrd",
+            href: "/cpj35_xrd",
+            title: "Analyse XRD",
+          },
         ]}
       />
     </div>

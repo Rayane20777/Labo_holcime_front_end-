@@ -1,25 +1,23 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-// import { makeData, Person } from './makeData';
 import { Box, Text,Button } from "@chakra-ui/react";
 import { format } from "date-fns";
 import {
-  // flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-// import Filters from "./Filters";
-// import SortIcon from "../icons/SortIcon";
 import DateCell from "../../DateCell";
 import DataTable from "../../DataTable";
 import Anchor from "./Anchor";
 import { Heading } from "@chakra-ui/react";
 import useDeleteRow from "../../DeleteRow";
+import PlusButton from "../../PlusButton";
 import DeleteButton from "../../DeleteButton";
 import AnalyseForm from "./Forms/AddForm";
+import FormsContainer from "./Forms/FormsContainer";
 
 const AnalyseTable = () => {
   const [data, setData] = useState([]);
@@ -31,6 +29,8 @@ const AnalyseTable = () => {
     error: deleteError,
   } = useDeleteRow("http://127.0.0.1:8000/api/analyse", setData);
   const [showForm, setShowForm] = useState(false);
+  const [showFormsContainer, setShowFormsContainer] = useState(false); // State for the forms container
+  const [selectedAnalyseId, setSelectedAnalyseId] = useState(null); // State to hold selected analyse ID
 
   // Fetch data from the API
   useEffect(() => {
@@ -108,7 +108,26 @@ const AnalyseTable = () => {
       id: "actions",
       header: "Actions",
       cell: ({ row }) => (
-        <DeleteButton onClick={() => deleteRow(row.index, data)} />
+        <>
+          <Box
+            style={{
+              display: "flex",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <DeleteButton onClick={() => deleteRow(row.index, data)} />
+            <PlusButton
+              onClick={() => {
+                setShowFormsContainer(!showFormsContainer);
+                setSelectedAnalyseId(row.original.id);
+              }}
+              colorScheme="teal"
+              ml={2}
+            >
+              {showFormsContainer ? "Hide Forms" : "Show Forms"}
+            </PlusButton>
+          </Box>
+        </>
       ),
     },
   ];
@@ -155,8 +174,11 @@ const AnalyseTable = () => {
         columnFilters={columnFilters}
         setColumnFilters={setColumnFilters}
       />
-      {deleteLoading && <Text>Deleting...</Text>}
+       {deleteLoading && <Text>Deleting...</Text>}
       {deleteError && <Text>Error deleting data: {deleteError.message}</Text>}
+      {showFormsContainer && (
+        <FormsContainer analyseId={selectedAnalyseId} />
+      )}{" "}
     </Box>
   );
 };

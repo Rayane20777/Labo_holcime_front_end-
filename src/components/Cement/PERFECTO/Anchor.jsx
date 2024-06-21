@@ -46,6 +46,11 @@ const App = () => (
             href: '/perfecto_xrf',
             title: 'Analyse XRF',
           },
+          {
+            key: 'perfecto_xrd',
+            href: '/perfecto_xrd',
+            title: 'Analyse XRD',
+          },
         ]}
       />
     </div>

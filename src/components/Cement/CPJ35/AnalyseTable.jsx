@@ -1,24 +1,22 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-// import { makeData, Person } from './makeData';
-import { Box, Text, Heading ,Button} from "@chakra-ui/react";
+import { Box, Text, Heading, Button } from "@chakra-ui/react";
 import { format } from "date-fns";
 import {
-  // flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-// import Filters from "./Filters";
-// import SortIcon from "../icons/SortIcon";
 import DateCell from "../../DateCell";
 import DataTable from "../../DataTable";
 import Anchor from "./Anchor";
 import DeleteButton from "../../DeleteButton";
+import PlusButton from "../../PlusButton";
 import useDeleteRow from "../../DeleteRow";
 import AnalyseForm from "./Forms/AddForm";
+import FormsContainer from "./Forms/FormsContainer";
 
 const AnalyseTable = () => {
   const [data, setData] = useState([]);
@@ -30,6 +28,8 @@ const AnalyseTable = () => {
     error: deleteError,
   } = useDeleteRow("http://127.0.0.1:8000/api/analyse", setData);
   const [showForm, setShowForm] = useState(false);
+  const [showFormsContainer, setShowFormsContainer] = useState(false); // State for the forms container
+  const [selectedAnalyseId, setSelectedAnalyseId] = useState(null); // State to hold selected analyse ID
 
   // Fetch data from the API
   useEffect(() => {
@@ -41,7 +41,6 @@ const AnalyseTable = () => {
         );
         setData(filteredData);
         setLoading(false);
-        console.log(filteredData);
       } catch (error) {
         console.error("Error fetching data:", error);
         setLoading(false);
@@ -74,21 +73,9 @@ const AnalyseTable = () => {
     }
   };
 
-  // const deleteRow = async (rowIndex) => {
-  //   const rowToDelete = data[rowIndex];
-  //   try {
-  //     const requestUrl = `http://127.0.0.1:8000/api/analyse/${rowToDelete.id}`;
-  //     await axios.delete(requestUrl);
-  //     setData((prevData) => prevData.filter((_, index) => index !== rowIndex));
-  //     console.log(`Deleted row with id: ${rowToDelete.id}`);
-  //   } catch (error) {
-  //     console.error("Error deleting data:", error);
-  //   }
-  // };
-
   const addAnalyse = (newAnalyse) => {
     setData((prevData) => [newAnalyse, ...prevData]);
-    setShowForm(false); 
+    setShowForm(false);
   };
 
   const columns = [
@@ -120,7 +107,26 @@ const AnalyseTable = () => {
       id: "actions",
       header: "Actions",
       cell: ({ row }) => (
-        <DeleteButton onClick={() => deleteRow(row.index, data)} />
+        <>
+          <Box
+            style={{
+              display: "flex",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <DeleteButton onClick={() => deleteRow(row.index, data)} />
+            <PlusButton
+              onClick={() => {
+                setShowFormsContainer(!showFormsContainer);
+                setSelectedAnalyseId(row.original.id);
+              }}
+              colorScheme="teal"
+              ml={2}
+            >
+              {showFormsContainer ? "Hide Forms" : "Show Forms"}
+            </PlusButton>
+          </Box>
+        </>
       ),
     },
   ];
@@ -150,10 +156,13 @@ const AnalyseTable = () => {
   return (
     <Box>
       <Heading
-      style={{marginLeft: 20,padding: 10}}
-      as='h2' size='2xl' noOfLines={1}>
-    CPJ35 - Analyse
-  </Heading>
+        style={{ marginLeft: 20, padding: 10 }}
+        as="h2"
+        size="2xl"
+        noOfLines={1}
+      >
+        CPJ35 - Analyse
+      </Heading>
       <Anchor />
       <Button colorScheme="blue" mb={4} onClick={() => setShowForm(!showForm)}>
         {showForm ? "Cancel" : "Add New Analyse"}
@@ -166,6 +175,9 @@ const AnalyseTable = () => {
       />
       {deleteLoading && <Text>Deleting...</Text>}
       {deleteError && <Text>Error deleting data: {deleteError.message}</Text>}
+      {showFormsContainer && (
+        <FormsContainer analyseId={selectedAnalyseId} />
+      )}{" "}
     </Box>
   );
 };
