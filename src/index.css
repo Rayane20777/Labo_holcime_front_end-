@@ -60,6 +60,7 @@
 
 
 .custom-anchor .ant-anchor-link-title {
+
     color: #1890ff;
     font-weight: bold; 
     font-size: 16px;
@@ -69,4 +70,5 @@
   
   .custom-anchor .ant-anchor-link-title:hover {
     color: #40a9ff; 
+    
   }

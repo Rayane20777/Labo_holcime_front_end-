@@ -86,7 +86,8 @@ const MatiereTable = () => {
         columnFilters={columnFilters}
         setColumnFilters={setColumnFilters}
       />
-      <Box className="table" w={table.getTotalSize()}>
+      <Box
+       className="table" w={table.getTotalSize()}>
         {table.getHeaderGroups().map((headerGroup) => (
           <Box className="tr" key={headerGroup.id}>
             {headerGroup.headers.map((header) => (

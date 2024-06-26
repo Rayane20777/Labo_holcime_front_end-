@@ -17,6 +17,7 @@ import PlusButton from "../../PlusButton";
 import useDeleteRow from "../../DeleteRow";
 import AnalyseForm from "./Forms/AddForm";
 import FormsContainer from "./Forms/FormsContainer";
+import '../../../App.css';
 
 const AnalyseTable = () => {
   const [data, setData] = useState([]);
@@ -28,8 +29,8 @@ const AnalyseTable = () => {
     error: deleteError,
   } = useDeleteRow("http://127.0.0.1:8000/api/analyse", setData);
   const [showForm, setShowForm] = useState(false);
-  const [showFormsContainer, setShowFormsContainer] = useState(false); // State for the forms container
-  const [selectedAnalyseId, setSelectedAnalyseId] = useState(null); // State to hold selected analyse ID
+  const [showFormsContainer, setShowFormsContainer] = useState(false); 
+  const [selectedAnalyseId, setSelectedAnalyseId] = useState(null);
 
   // Fetch data from the API
   useEffect(() => {
@@ -164,7 +165,7 @@ const AnalyseTable = () => {
         CPJ35 - Analyse
       </Heading>
       <Anchor />
-      <Button colorScheme="blue" mb={4} onClick={() => setShowForm(!showForm)}>
+      <Button style={{backgroundColor:"#3f6212"}} mb={4} onClick={() => setShowForm(!showForm)}>
         {showForm ? "Cancel" : "Add New Analyse"}
       </Button>
       {showForm && <AnalyseForm onAdd={addAnalyse} />}

@@ -16,7 +16,7 @@ const AddAnalyseForm = ({ onAdd }) => {
     date_gachage: "",
     destination_id: "",
     point_echantillonage_id: "",
-    matiere_id: "1",
+    matiere_id: "8",
     user_id: "1",
   });
 

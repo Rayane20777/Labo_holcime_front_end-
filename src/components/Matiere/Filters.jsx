@@ -6,7 +6,6 @@ import {
     InputLeftElement,
   } from "@chakra-ui/react";
   import SearchIcon from "../icons/SearchIcon";
-  import FilterPopover from "../FilterPopover";
   
   const Filters = ({ columnFilters, setColumnFilters }) => {
     const matiereName = columnFilters.find((f) => f.id === "nom")?.value || "";
@@ -28,6 +27,9 @@ import {
             <Icon as={SearchIcon} />
           </InputLeftElement>
           <Input
+          style={{
+            backgroundColor:"#368014"
+          }}
             type="text"
             variant="filled"
             placeholder="Matiere nom"
@@ -36,10 +38,7 @@ import {
             onChange={(e) => onFilterChange("nom", e.target.value)}
           />
         </InputGroup>
-        <FilterPopover
-          columnFilters={columnFilters}
-          setColumnFilters={setColumnFilters}
-        />
+
       </HStack>
     );
   };

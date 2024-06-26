@@ -6,8 +6,11 @@ import Logo from  './components/Logo';
 import MenuList from  './components/MenuList';
 import ToggleThemeButton from  './components/ToggleThemeButton';
 // import { Box, Heading } from "@chakra-ui/react";
+import './App.css';
+
 // import Home from "./components/Home";
 import Matiere from "./components/Matiere/MatiereTable";
+import User from "./components/Utilisateur/User";
 import Destination from "./components/Destination/DestinationTable";
 import PointEchantillonage from "./components/PointEchantillonage/PointEchantillonageTable";
 
@@ -124,7 +127,7 @@ function App() {
 
   return(
     <Router>
-    <Layout>
+    <Layout >
       <Sider collapsed={collapsed} collapsible trigger={null} theme={darkTheme ? 'dark' : 'light'} className='sidebar' >
         <Logo />
         <MenuList darkTheme = {darkTheme}/>
@@ -141,11 +144,10 @@ function App() {
         <Layout style={{ padding: ' 12px 12px' }}>
           
           <Content
+          className="gradient-background"
             style={{
-              padding: 24,
-              margin: 0,
+              padding: 12,
               minHeight: 280,
-              background: colorBgContainer,
             }}
           >
         <Routes>
@@ -153,6 +155,7 @@ function App() {
                 <Route path="/matiere" element={<Matiere />} />
                 <Route path="/destination" element={<Destination />} />
                 <Route path="/point_echantillonage" element={<PointEchantillonage />} />
+                <Route path="/user" element={<User />} />
 {/* ******************************************************************************************************************** */}
                 <Route path="/pmes" element={<PMES />} />
                 <Route path="/pmes_chimique" element={<PMES_Chimique />} />
@@ -198,14 +201,14 @@ function App() {
 {/* ******************************************************************************************************************** */}
                 
 {/* ******************************************************************************************************************** */}
-                <Route path="/cpj35" element={<CPJ35 />} />
-                <Route path="/cpj35_chimique" element={<CPJ35_Chimique />} />
-                <Route path="/cpj35_gachage" element={<CPJ35_Gachage />} />
-                <Route path="/cpj35_temps_prise" element={<CPJ35_TempsPrise />} />
-                <Route path="/cpj35_proportion" element={<CPJ35_Proportion />} />
-                <Route path="/cpj35_physique" element={<CPJ35_Physique />} />
-                <Route path="/cpj35_xrf" element={<CPJ35_Xrf />} />
-                <Route path="/cpj35_xrd" element={<CPJ35_Xrd />} />
+      <Route path="/cpj35" element={<CPJ35 />} />
+      <Route path="/cpj35_chimique" element={<CPJ35_Chimique />} />
+      <Route path="/cpj35_gachage" element={<CPJ35_Gachage />} />
+      <Route path="/cpj35_temps_prise" element={<CPJ35_TempsPrise />} />
+      <Route path="/cpj35_proportion" element={<CPJ35_Proportion />} />
+      <Route path="/cpj35_physique" element={<CPJ35_Physique />} />
+      <Route path="/cpj35_xrf" element={<CPJ35_Xrf />} />
+      <Route path="/cpj35_xrd" element={<CPJ35_Xrd />} />
 {/* ******************************************************************************************************************** */}
                 
 {/* ******************************************************************************************************************** */}

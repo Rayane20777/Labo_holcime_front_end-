@@ -1,59 +1,37 @@
 import { Anchor } from "antd";
-import "..//../../index.css";
+import { Box } from "@chakra-ui/react";
+
+import { Link } from "react-router-dom";
+import "../../../index.css";
+
 const App = () => (
   <>
-    <div
-      style={{
-        padding: "20px",
-      }}
-    >
-      <Anchor
-        direction="horizontal"
-        className="custom-anchor"
-        items={[
-          {
-            key: "j35",
-            href: "/j35",
-            title: "Analyse",
-          },
-          {
-            key: "j35_chimique",
-            href: "/j35_chimique",
-            title: "Analyse Chimique",
-          },
-          {
-            key: "j35_gachage",
-            href: "/j35_gachage",
-            title: "Phase Gachage",
-          },
-          {
-            key: "j35_temps_prise",
-            href: "/j35_temps_prise",
-            title: "Phase Temps Prise",
-          },
-          {
-            key: "j35_proportion",
-            href: "/j35_proportion",
-            title: " Proportion",
-          },
-          {
-            key: "j35_physique",
-            href: "/j35_physique",
-            title: " Physique",
-          },
-          {
-            key: "j35_xrf",
-            href: "/j35_xrf",
-            title: "Analyse XRF",
-          },
-          {
-            key: "j35_xrd",
-            href: "/j35_xrd",
-            title: "Analyse XRD",
-          },
-        ]}
-      />
+    <div style={{ padding: "20px" }}>
+      <Anchor direction="horizontal" className="custom-anchor">
+        <Box
+          style={{
+            display: "flex",
+            gap: "24px",
+            fontSize:"16px",
+            fontWeight: "bold",
+            textDecoration: "none",
+            transition: "all 0.3s ease",
+
+          }}
+        >
+          <Link to="/j35">Analyse</Link>
+          <Link to="/j35_chimique">Analyse Chimique</Link>
+          <Link to="/j35_gachage">Phase Gachage</Link>
+          <Link to="/j35_temps_prise">Phase Temps Prise</Link>
+          <Link to="/j35_proportion">Proportion</Link>
+          <Link to="/j35_physique">Resultat Physique</Link>
+          <Link to="/j35_xrf">Analyse XRF</Link>
+          <Link to="/j35_xrd">Analyse XRD</Link>
+        </Box>
+      </Anchor>
     </div>
   </>
 );
+
 export default App;
+

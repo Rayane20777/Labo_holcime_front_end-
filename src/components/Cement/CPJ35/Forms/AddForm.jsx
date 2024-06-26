@@ -83,10 +83,14 @@ const AddAnalyseForm = ({ onAdd }) => {
   }
 
   return (
-    <Box as="form" onSubmit={handleSubmit} mb={4}>
-      <FormControl>
+    <Box>
+    <Box style={{
+      display:"flex",
+    }} as="form" onSubmit={handleSubmit} mb={4}>
+           <FormControl
+      style={{width:"20%"}}>
         <FormLabel>Date Prelevement</FormLabel>
-        <Space direction="vertical">
+        <Space >
           <DatePicker 
             name="date_prelevement"
             onChange={(date, dateString) => handleDateChange(date, dateString, "date_prelevement")}
@@ -94,7 +98,8 @@ const AddAnalyseForm = ({ onAdd }) => {
           />
         </Space>
       </FormControl>
-      <FormControl>
+           <FormControl
+      style={{width:"20%"}}>
         <FormLabel>Date Gachage</FormLabel>
         <Space direction="vertical">
           <DatePicker 
@@ -104,7 +109,8 @@ const AddAnalyseForm = ({ onAdd }) => {
           />
         </Space>
       </FormControl>
-      <FormControl>
+      <FormControl
+      style={{width:"20%"}}>
         <FormLabel>Destination</FormLabel>
         <Select
           name="destination_id"
@@ -118,7 +124,8 @@ const AddAnalyseForm = ({ onAdd }) => {
           ))}
         </Select>
       </FormControl>
-      <FormControl>
+           <FormControl
+      style={{width:"20%"}}>
         <FormLabel>Point Echantillonage</FormLabel>
         <Select
           name="point_echantillonage_id"
@@ -132,7 +139,8 @@ const AddAnalyseForm = ({ onAdd }) => {
           ))}
         </Select>
       </FormControl>
-      <Button type="submit" colorScheme="blue" mt={4}>
+      </Box>
+      <Button style={{backgroundColor:"#3f6212",color:"white  "}} type="submit" colorScheme="blue" mt={4}>
         Add Analyse
       </Button>
     </Box>

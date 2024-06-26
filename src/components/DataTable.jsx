@@ -23,6 +23,8 @@ const DataTable = ({ table, columnFilters, setColumnFilters }) => {
                   flexDirection: "column",
                   alignItems: "center",
                   justifyContent: "space-between",
+                  color:"black",
+                  fontWeight:"600"
                 }}
                 className="th"
                 w={header.getSize()}
@@ -62,7 +64,7 @@ const DataTable = ({ table, columnFilters, setColumnFilters }) => {
           </Box>
         ))}
         {table.getRowModel().rows.map((row) => (
-          <Box className="tr" key={row.id}>
+          <Box className="tr" key={row.id} >
             {row.getVisibleCells().map((cell) => (
               <Box className="td" w={cell.column.getSize()} key={cell.id}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}

@@ -24,9 +24,12 @@ const Filters = ({ columnId, columnFilters, setColumnFilters }) => {
           <Icon as={SearchIcon} />
         </InputLeftElement>
         <Input
+        style={{
+          backgroundColor:"#368014"
+        }}
           type="text"
           variant="filled"
-          placeholder={columnId} // Handle nested fields
+          placeholder={columnId}
           borderRadius={5}
           value={filterValue}
           onChange={(e) => onFilterChange(columnId, e.target.value)}

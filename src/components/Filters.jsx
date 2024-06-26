@@ -28,6 +28,9 @@ import {
             <Icon as={SearchIcon} />
           </InputLeftElement>
           <Input
+          style={{
+            backgroundColor:"#368014"
+          }}
             type="text"
             variant="filled"
             placeholder="Task name"

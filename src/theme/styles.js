@@ -20,10 +20,9 @@ const styles = {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        color: "gray.400",
+        color: "#365314",
         padding: "0.5rem",
         fontWeight: "bold",
-        fontSize: "xs",
         textTransform: "uppercase",
         textAlign: "center",
       },
@@ -31,7 +30,8 @@ const styles = {
         m: "1",
         padding: "0.2rem",
         bg: "transparent",
-        maxW: "100%",
+        maxW: "95%",
+        border:"none"
       },
       ".date-wrapper": {
         display: "flex",

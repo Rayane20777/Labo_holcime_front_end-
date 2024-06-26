@@ -1,61 +1,37 @@
-import { Anchor } from 'antd';
-import '..//../../index.css';
+import { Anchor } from "antd";
+import { Box } from "@chakra-ui/react";
+
+import { Link } from "react-router-dom";
+import "../../../index.css";
+
 const App = () => (
   <>
-    <div
-      style={{
-        padding: '20px',
-      }}
-    >
-      <Anchor
-        direction="horizontal"
-        className="custom-anchor"
-        items={[
-          {
-            key: 'j55',
-            href: '/j55',
-            title: 'Analyse',
-          },
-          {
-            key: 'j55_chimique',
-            href: '/j55_chimique',
-            title: 'Analyse Chimique',
-          },
-          {
-            key: 'j55_gachage',
-            href: '/j55_gachage',
-            title: 'Phase Gachage',
-          },
-          {
-            key: 'j55_temps_prise',
-            href: '/j55_temps_prise',
-            title: 'Phase Temps Prise',
-          },
-          {
-            key: 'j55_proportion',
-            href: '/j55_proportion',
-            title: ' Proportion',
-          },
-          {
-            key: 'j55_physique',
-            href: '/j55_physique',
-            title: ' Physique',
-          },
-          {
-            key: 'j55_xrf',
-            href: '/j55_xrf',
-            title: 'Analyse XRF',
-          },
-          {
-            key: 'j55_xrd',
-            href: '/j55_xrd',
-            title: 'Analyse XRD',
-          },
-        ]}
-      />
+    <div style={{ padding: "20px" }}>
+      <Anchor direction="horizontal" className="custom-anchor">
+        <Box
+          style={{
+            display: "flex",
+            gap: "24px",
+            fontSize:"16px",
+            fontWeight: "bold",
+            textDecoration: "none",
+            transition: "all 0.3s ease",
+
+          }}
+        >
+          <Link to="/j55">Analyse</Link>
+          <Link to="/j55_chimique">Analyse Chimique</Link>
+          <Link to="/j55_gachage">Phase Gachage</Link>
+          <Link to="/j55_temps_prise">Phase Temps Prise</Link>
+          <Link to="/j55_proportion">Proportion</Link>
+          <Link to="/j55_physique">Resultat Physique</Link>
+          <Link to="/j55_xrf">Analyse XRF</Link>
+          <Link to="/j55_xrd">Analyse XRD</Link>
+        </Box>
+      </Anchor>
     </div>
-    
-     
   </>
 );
+
 export default App;
+

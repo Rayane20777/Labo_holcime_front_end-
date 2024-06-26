@@ -12,7 +12,7 @@ import {
 import EditableCell from "../EditableCell";
 import Filters from "./Filters";
 import SortIcon from "../icons/SortIcon";
-
+import AddDestination from "./AddDestination";
 const columns = [
   {
     accessorKey: "nom",
@@ -22,7 +22,6 @@ const columns = [
     enableColumnFilter: true,
     filterFn: "includesString",
   },
-
   {
     accessorKey: "matiere.nom",
     header: "Matiere",
@@ -30,56 +29,56 @@ const columns = [
     enableColumnFilter: true,
     filterFn: "includesString",
   },
-
-  
-
 ];
 
-const MatiereTable = () => {
+const DestinationTable = () => {
   const [data, setData] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showForm, setShowForm] = useState(false);
 
-  // Fetch data from the API
+  const addDestination = (newDestination) => {
+    setData((prevData) => [newDestination, ...prevData]);
+    setShowForm(false);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/destination');
+        const response = await axios.get(
+          "http://127.0.0.1:8000/api/destination"
+        );
         setData(response.data);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
         setLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
   const updateData = async (rowIndex, columnId, value) => {
-    const updatedRow = {...data[rowIndex], [columnId]: value };
+    const updatedRow = { ...data[rowIndex], [columnId]: value };
     const sendData = { nom: updatedRow.nom, matiere_id: updatedRow.matiere_id };
     try {
-        const requestUrl = `http://127.0.0.1:8000/api/destination/${updatedRow.id}`;
-        const response = await axios.post(requestUrl, sendData); // Changed to PUT request
-        console.log('Update response:', response);
-        
-        // Update the local state with the new data
-        setData((prevData) => {
-            prevData[rowIndex] = updatedRow;
-            return [...prevData];
-        });
+      const requestUrl = `http://127.0.0.1:8000/api/destination/${updatedRow.id}`;
+      const response = await axios.post(requestUrl, sendData); 
+      console.log("Update response:", response);
+
+      setData((prevData) => {
+        prevData[rowIndex] = updatedRow;
+        return [...prevData];
+      });
     } catch (error) {
-        console.error('Error updating data:', error);
+      console.error("Error updating data:", error);
     }
-};
+  };
 
   const table = useReactTable({
-      data,
-      columns,
-    state: {
-      columnFilters,
-    },
+    data,
+    columns,
+    state: { columnFilters },
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -87,8 +86,9 @@ const MatiereTable = () => {
     getSortedRowModel: getSortedRowModel(),
     columnResizeMode: "onChange",
     meta: {
-        updateData: (rowIndex, columnId, value) => updateData(rowIndex, columnId, value),
-      },
+      updateData: (rowIndex, columnId, value) =>
+        updateData(rowIndex, columnId, value),
+    },
   });
 
   if (loading) {
@@ -101,6 +101,10 @@ const MatiereTable = () => {
         columnFilters={columnFilters}
         setColumnFilters={setColumnFilters}
       />
+      <Button colorScheme="blue" mb={4} onClick={() => setShowForm(!showForm)}>
+        {showForm ? "Cancel" : "Add New Destination"}
+      </Button>
+      {showForm && <AddDestination onAdd={addDestination} />}
       <Box className="table" w={table.getTotalSize()}>
         {table.getHeaderGroups().map((headerGroup) => (
           <Box className="tr" key={headerGroup.id}>
@@ -149,15 +153,15 @@ const MatiereTable = () => {
       </Text>
       <ButtonGroup size="sm" isAttached variant="outline">
         <Button
-        style={{ color: 'black', borderColor: 'black' }}
-        onClick={() => table.previousPage()}
+          style={{ color: "black", borderColor: "black" }}
+          onClick={() => table.previousPage()}
           isDisabled={!table.getCanPreviousPage()}
         >
           {"<"}
         </Button>
         <Button
-        style={{ color: 'black', borderColor: 'black' }}
-        onClick={() => table.nextPage()}
+          style={{ color: "black", borderColor: "black" }}
+          onClick={() => table.nextPage()}
           isDisabled={!table.getCanNextPage()}
         >
           {">"}
@@ -167,4 +171,4 @@ const MatiereTable = () => {
   );
 };
 
-export default MatiereTable;
+export default DestinationTable;

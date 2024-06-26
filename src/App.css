@@ -2,6 +2,15 @@
   text-align: center;
 }
 
+.gradient-background {
+background: url('./assets/image.png');
+background-size: 1000%;
+background-position: center;
+object-fit: cover;
+
+}
+
+c
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -12,6 +21,14 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
+.custom-header {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  padding: 8px;
+}
+
 
 .App-header {
   background-color: #282c34;

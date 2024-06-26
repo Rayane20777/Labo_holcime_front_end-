@@ -68,13 +68,15 @@ const MenuList = ({darkTheme}) => {
 
             <Menu.Item title='CPJ35' key="CPJ35">
             <Link to="/cpj35">CPJ35</Link>
+            
             </Menu.Item>
 
             
             </Menu.SubMenu>
 
-            <Menu.Item key="utilisateur" icon = {<UserOutlined /> } >
-                Utilisateur
+            <Menu.Item title='Utilisateur' key="utilisateur" icon = {<UserOutlined /> } >
+            <Link to="/user">Utilisateur</Link>
+
             </Menu.Item>
 
             <Menu.Item key="logout" icon = {<LogoutOutlined /> } >

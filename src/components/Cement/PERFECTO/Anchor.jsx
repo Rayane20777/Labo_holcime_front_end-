@@ -1,61 +1,37 @@
-import { Anchor } from 'antd';
-import '..//../../index.css';
+import { Anchor } from "antd";
+import { Box } from "@chakra-ui/react";
+
+import { Link } from "react-router-dom";
+import "../../../index.css";
+
 const App = () => (
   <>
-    <div
-      style={{
-        padding: '20px',
-      }}
-    >
-      <Anchor
-        direction="horizontal"
-        className="custom-anchor"
-        items={[
-          {
-            key: 'perfecto',
-            href: '/perfecto',
-            title: 'Analyse',
-          },
-          {
-            key: 'perfecto_chimique',
-            href: '/perfecto_chimique',
-            title: 'Analyse Chimique',
-          },
-          {
-            key: 'perfecto_gachage',
-            href: '/perfecto_gachage',
-            title: 'Phase Gachage',
-          },
-          {
-            key: 'perfecto_temps_prise',
-            href: '/perfecto_temps_prise',
-            title: 'Phase Temps Prise',
-          },
-          {
-            key: 'perfecto_proportion',
-            href: '/perfecto_proportion',
-            title: ' Proportion',
-          },
-          {
-            key: 'perfecto_physique',
-            href: '/perfecto_physique',
-            title: ' Physique',
-          },
-          {
-            key: 'perfecto_xrf',
-            href: '/perfecto_xrf',
-            title: 'Analyse XRF',
-          },
-          {
-            key: 'perfecto_xrd',
-            href: '/perfecto_xrd',
-            title: 'Analyse XRD',
-          },
-        ]}
-      />
+    <div style={{ padding: "20px" }}>
+      <Anchor direction="horizontal" className="custom-anchor">
+        <Box
+          style={{
+            display: "flex",
+            gap: "24px",
+            fontSize:"16px",
+            fontWeight: "bold",
+            textDecoration: "none",
+            transition: "all 0.3s ease",
+
+          }}
+        >
+          <Link to="/perfecto">Analyse</Link>
+          <Link to="/perfecto_chimique">Analyse Chimique</Link>
+          <Link to="/perfecto_gachage">Phase Gachage</Link>
+          <Link to="/perfecto_temps_prise">Phase Temps Prise</Link>
+          <Link to="/perfecto_proportion">Proportion</Link>
+          <Link to="/perfecto_physique">Resultat Physique</Link>
+          <Link to="/perfecto_xrf">Analyse XRF</Link>
+          <Link to="/perfecto_xrd">Analyse XRD</Link>
+        </Box>
+      </Anchor>
     </div>
-    
-     
   </>
 );
+
 export default App;
+

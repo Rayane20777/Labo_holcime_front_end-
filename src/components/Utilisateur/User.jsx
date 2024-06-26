@@ -12,33 +12,40 @@ import {
 import EditableCell from "../EditableCell";
 import Filters from "./Filters";
 import SortIcon from "../icons/SortIcon";
-import AddPointEchantillonage from "./AddPointEchantillonage";
+import AddUser from "./AddUser";
+
 const columns = [
   {
-    accessorKey: "nom",
+    accessorKey: "username",
     header: "Nom",
     size: 200,
     cell: EditableCell,
     enableColumnFilter: true,
     filterFn: "includesString",
   },
+
   {
-    accessorKey: "matiere.nom",
+    accessorKey: "role",
     header: "Matiere",
     size: 200,
+    cell: EditableCell,
     enableColumnFilter: true,
     filterFn: "includesString",
   },
 ];
 
-const MatiereTable = () => {
+const UserTable = () => {
   const [data, setData] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
 
-  const addPointEchantillonage = (newPointEchantillonage) => {
-    setData((prevData) => [newPointEchantillonage, ...prevData]);
+  const addUser = (newUser) => {
+    if (!newUser.username || !newUser.role) {
+      console.error("Incomplete user data:", newUser);
+      return;
+    }
+    setData((prevData) => [newUser, ...prevData]);
     setShowForm(false);
   };
 
@@ -46,7 +53,7 @@ const MatiereTable = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000/api/point_echantillonage"
+          "http://127.0.0.1:8000/api/user"
         );
         setData(response.data);
         setLoading(false);
@@ -60,10 +67,10 @@ const MatiereTable = () => {
 
   const updateData = async (rowIndex, columnId, value) => {
     const updatedRow = { ...data[rowIndex], [columnId]: value };
-    const sendData = { nom: updatedRow.nom, matiere_id: updatedRow.matiere_id };
+    const sendData = { username: updatedRow.username, role: updatedRow.role };
     try {
-      const requestUrl = `http://127.0.0.1:8000/api/point_echantillonage/${updatedRow.id}`;
-      const response = await axios.post(requestUrl, sendData); // Changed to POST request
+      const requestUrl = `http://127.0.0.1:8000/api/user/${updatedRow.id}`;
+      const response = await axios.post(requestUrl, sendData); 
       console.log("Update response:", response);
 
       setData((prevData) => {
@@ -102,9 +109,9 @@ const MatiereTable = () => {
         setColumnFilters={setColumnFilters}
       />
       <Button colorScheme="blue" mb={4} onClick={() => setShowForm(!showForm)}>
-        {showForm ? "Cancel" : "Add New Point Echantillonage"}
+        {showForm ? "Cancel" : "Add New User"}
       </Button>
-      {showForm && <AddPointEchantillonage onAdd={addPointEchantillonage} />}
+      {showForm && <AddUser onAdd={addUser} />}
       <Box className="table" w={table.getTotalSize()}>
         {table.getHeaderGroups().map((headerGroup) => (
           <Box className="tr" key={headerGroup.id}>
@@ -171,4 +178,4 @@ const MatiereTable = () => {
   );
 };
 
-export default MatiereTable;
+export default UserTable;
