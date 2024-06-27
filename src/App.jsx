@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {Button,Layout , theme} from 'antd';
+import {Button, Layout, theme} from 'antd';
 import {MenuUnfoldOutlined , MenuFoldOutlined} from '@ant-design/icons';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Logo from  './components/Logo';
@@ -13,7 +13,8 @@ import Matiere from "./components/Matiere/MatiereTable";
 import User from "./components/Utilisateur/User";
 import Destination from "./components/Destination/DestinationTable";
 import PointEchantillonage from "./components/PointEchantillonage/PointEchantillonageTable";
-
+import Login from "./components/Auth/Login";
+import AuthProvider from "./Providers/AuthProvider";
 
 
 {/* ******************************************************************************************************************** */}
@@ -126,7 +127,12 @@ function App() {
 
 
   return(
+    <AuthProvider>
     <Router>
+    <Routes>
+    <Route path="/login" element={<Login />} />
+    <Route path="/*"
+            element={
     <Layout >
       <Sider collapsed={collapsed} collapsible trigger={null} theme={darkTheme ? 'dark' : 'light'} className='sidebar' >
         <Logo />
@@ -151,6 +157,8 @@ function App() {
             }}
           >
         <Routes>
+        <Route path="/login" element={<Login />} />
+
                 {/* <Route path="/" element={<Home />} /> */}
                 <Route path="/matiere" element={<Matiere />} />
                 <Route path="/destination" element={<Destination />} />
@@ -249,8 +257,12 @@ function App() {
           </Content>
         </Layout>
       </Layout>
-    </Layout>
+    </Layout>}
+          />
+        </Routes>
+    
         </Router>
+        </AuthProvider>
   )
 }
 
