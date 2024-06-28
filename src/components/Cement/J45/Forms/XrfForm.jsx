@@ -66,75 +66,39 @@ const PhaseGachageForm = ({ analyseId, onAdd }) => {
       <Box mb={4}>
         <FormControl mb={4}>
           <FormLabel>SiO2 </FormLabel>
-          <Input
-            name="SiO2"
-            value={formData.SiO2}
-            onChange={handleChange}
-          />
+          <Input name="SiO2" value={formData.SiO2} onChange={handleChange} />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>&gt;Al2O3 </FormLabel>
-          <Input
-            name="Al2O3"
-            value={formData.Al2O3}
-            onChange={handleChange}
-          />
+          <Input name="Al2O3" value={formData.Al2O3} onChange={handleChange} />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>&gt;Fe2O3 </FormLabel>
-          <Input
-            name="Fe2O3"
-            value={formData.Fe2O3}
-            onChange={handleChange}
-          />
+          <Input name="Fe2O3" value={formData.Fe2O3} onChange={handleChange} />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>CaO</FormLabel>
-          <Input
-            name="CaO"
-            value={formData.CaO}
-            onChange={handleChange}
-          />
+          <Input name="CaO" value={formData.CaO} onChange={handleChange} />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>MgO</FormLabel>
-          <Input
-            name="MgO"
-            value={formData.MgO}
-            onChange={handleChange}
-          />
+          <Input name="MgO" value={formData.MgO} onChange={handleChange} />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>SO3</FormLabel>
-          <Input
-            name="SO3"
-            value={formData.SO3}
-            onChange={handleChange}
-          />
+          <Input name="SO3" value={formData.SO3} onChange={handleChange} />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>K2O</FormLabel>
-          <Input
-            name="K2O"
-            value={formData.K2O}
-            onChange={handleChange}
-          />
+          <Input name="K2O" value={formData.K2O} onChange={handleChange} />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>Na2O</FormLabel>
-          <Input
-            name="Na2O"
-            value={formData.Na2O}
-            onChange={handleChange}
-          />
+          <Input name="Na2O" value={formData.Na2O} onChange={handleChange} />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>P2O5</FormLabel>
-          <Input
-            name="P2O5"
-            value={formData.P2O5}
-            onChange={handleChange}
-          />
+          <Input name="P2O5" value={formData.P2O5} onChange={handleChange} />
         </FormControl>
         <Button colorScheme="blue" type="submit">
           Add Analyse Chimique

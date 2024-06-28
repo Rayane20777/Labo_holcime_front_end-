@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Box, Text , Heading} from "@chakra-ui/react";
+import { Box, Text, Heading } from "@chakra-ui/react";
 import {
   // flexRender,
   getCoreRowModel,
@@ -164,10 +164,13 @@ const ResultatAnalysePhysiqueTable = () => {
   return (
     <Box>
       <Heading
-      style={{marginLeft: 20,padding: 10}}
-      as='h2' size='2xl' noOfLines={1}>
-    CPJ35 - Resultat Physique
-  </Heading>
+        style={{ marginLeft: 20, padding: 10 }}
+        as="h2"
+        size="2xl"
+        noOfLines={1}
+      >
+        CPJ35 - Resultat Physique
+      </Heading>
       <Anchor />
       <DataTable
         table={table}

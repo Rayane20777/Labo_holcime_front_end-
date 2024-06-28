@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 // import { makeData, Person } from './makeData';
-import { Box, Text , Heading} from "@chakra-ui/react";
+import { Box, Text, Heading } from "@chakra-ui/react";
 import {
-
   // flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -16,29 +15,32 @@ import {
 import EditableCell from "../../EditableCell";
 import DataTable from "../../DataTable";
 import Anchor from "./Anchor";
-import useDeleteRow from "../../DeleteRow"; 
-import DeleteButton from '../../DeleteButton';
-
-
-
+import useDeleteRow from "../../DeleteRow";
+import DeleteButton from "../../DeleteButton";
 
 const XrfTable = () => {
   const [data, setData] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { deleteRow, loading: deleteLoading, error: deleteError } = useDeleteRow('http://127.0.0.1:8000/api/analyse', setData);
+  const {
+    deleteRow,
+    loading: deleteLoading,
+    error: deleteError,
+  } = useDeleteRow("http://127.0.0.1:8000/api/analyse", setData);
 
   // Fetch data from the API
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/xrf');
-        const filteredData = response.data.filter(item => item.analyse.matiere.nom === "PERFECTO");
+        const response = await axios.get("http://127.0.0.1:8000/api/xrf");
+        const filteredData = response.data.filter(
+          (item) => item.analyse.matiere.nom === "PERFECTO"
+        );
         setData(filteredData);
         setLoading(false);
-      console.log(filteredData)
+        console.log(filteredData);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
         setLoading(false);
       }
     };
@@ -53,19 +55,18 @@ const XrfTable = () => {
     try {
       const requestUrl = `http://127.0.0.1:8000/api/xrf/${updatedRow.id}`;
       const response = await axios.post(requestUrl, sendData);
-      console.log('Update response:', response);
+      console.log("Update response:", response);
 
       setData((prevData) => {
         const newData = [...prevData];
         newData[rowIndex] = updatedRow;
         return newData;
-
       });
     } catch (error) {
       console.error("Error updating data:", error);
     }
   };
-  
+
   const columns = [
     {
       accessorKey: "SiO2",
@@ -144,7 +145,8 @@ const XrfTable = () => {
     getSortedRowModel: getSortedRowModel(),
     columnResizeMode: "onChange",
     meta: {
-      updateData: (rowIndex, columnId, value) => updateData(rowIndex, columnId, value),
+      updateData: (rowIndex, columnId, value) =>
+        updateData(rowIndex, columnId, value),
     },
   });
 
@@ -155,18 +157,22 @@ const XrfTable = () => {
   return (
     <Box>
       <Heading
-      style={{marginLeft: 20,padding: 10}}
-      as='h2' size='2xl' noOfLines={1}>
-    PERFECTO - Analyse XRF 
-  </Heading>
+        style={{ marginLeft: 20, padding: 10 }}
+        as="h2"
+        size="2xl"
+        noOfLines={1}
+      >
+        PERFECTO - Analyse XRF
+      </Heading>
       <Anchor />
       <DataTable
         table={table}
         columnFilters={columnFilters}
         setColumnFilters={setColumnFilters}
       />
-          {deleteLoading && <Text>Deleting...</Text>}
-          {deleteError && <Text>Error deleting data: {deleteError.message}</Text>}</Box>
+      {deleteLoading && <Text>Deleting...</Text>}
+      {deleteError && <Text>Error deleting data: {deleteError.message}</Text>}
+    </Box>
   );
 };
 

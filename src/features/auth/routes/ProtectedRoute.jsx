@@ -1,5 +1,5 @@
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../../../Praoviders/AuthProvider';
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../../../Praoviders/AuthProvider";
 
 const ProtectedRoute = ({ element }) => {
   const { user } = useAuth();

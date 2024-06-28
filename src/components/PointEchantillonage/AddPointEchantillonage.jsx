@@ -1,5 +1,12 @@
 import { useState, useEffect } from "react";
-import { Box, Button, FormControl, FormLabel, Input, Select } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Select,
+} from "@chakra-ui/react";
 import axios from "axios";
 
 const AddPointEchantillonage = ({ onAdd }) => {
@@ -10,7 +17,9 @@ const AddPointEchantillonage = ({ onAdd }) => {
   useEffect(() => {
     const fetchOptions = async () => {
       try {
-        const matieresResponse = await axios.get("http://127.0.0.1:8000/api/matiere");
+        const matieresResponse = await axios.get(
+          "http://127.0.0.1:8000/api/matiere"
+        );
         setMatieres(matieresResponse.data);
         setLoading(false);
       } catch (error) {
@@ -28,10 +37,22 @@ const AddPointEchantillonage = ({ onAdd }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/point_echantillonage", formData);
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/point_echantillonage",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       onAdd(response.data);
     } catch (error) {
-      console.error("Error adding data:", error.response ? error.response.data : error.message);
+      console.error(
+        "Error adding data:",
+        error.response ? error.response.data : error.message
+      );
     }
   };
 
@@ -47,7 +68,11 @@ const AddPointEchantillonage = ({ onAdd }) => {
       </FormControl>
       <FormControl>
         <FormLabel>Matiere</FormLabel>
-        <Select name="matiere_id" value={formData.matiere_id} onChange={handleChange}>
+        <Select
+          name="matiere_id"
+          value={formData.matiere_id}
+          onChange={handleChange}
+        >
           {matieres.map((matiere) => (
             <option key={matiere.id} value={matiere.id}>
               {matiere.nom}

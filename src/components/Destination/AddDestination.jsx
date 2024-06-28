@@ -17,8 +17,14 @@ const AddDestination = ({ onAdd }) => {
   useEffect(() => {
     const fetchOptions = async () => {
       try {
+        const token = localStorage.getItem("token");
         const matieresResponse = await axios.get(
-          "http://127.0.0.1:8000/api/matiere"
+          "http://127.0.0.1:8000/api/matiere",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         setMatieres(matieresResponse.data);
         setLoading(false);
@@ -37,9 +43,15 @@ const AddDestination = ({ onAdd }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem("token");
       const response = await axios.post(
         "http://127.0.0.1:8000/api/destination",
-        formData
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       onAdd(response.data);
     } catch (error) {

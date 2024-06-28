@@ -3,15 +3,13 @@
 }
 
 .gradient-background {
-background: url('./assets/image.png');
-background-size: 1000%;
-background-position: center;
-object-fit: cover;
-
+  background: url("./assets/image.png");
+  background-size: 1000%;
+  background-position: center;
+  object-fit: cover;
 }
 
-ca
-.App-logo {
+ca .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -28,7 +26,6 @@ ca
   text-align: center;
   padding: 8px;
 }
-
 
 .App-header {
   background-color: #282c34;

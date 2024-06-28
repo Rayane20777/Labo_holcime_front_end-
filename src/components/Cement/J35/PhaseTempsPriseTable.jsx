@@ -19,7 +19,7 @@ import Anchor from "./Anchor";
 import { Heading } from "@chakra-ui/react";
 import useDeleteRow from "../../DeleteRow";
 import DeleteButton from "../../DeleteButton";
-
+F
 const PhaseTempsPriseTable = () => {
   const [data, setData] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 // import { makeData, Person } from './makeData';
-import { Box, Text,Heading,Button } from "@chakra-ui/react";
+import { Box, Text, Heading, Button } from "@chakra-ui/react";
 import { format } from "date-fns";
 import {
   // flexRender,
@@ -79,7 +79,7 @@ const AnalyseTable = () => {
   };
   const addAnalyse = (newAnalyse) => {
     setData((prevData) => [newAnalyse, ...prevData]);
-    setShowForm(false); 
+    setShowForm(false);
   };
   const columns = [
     {
@@ -164,7 +164,7 @@ const AnalyseTable = () => {
         size="2xl"
         noOfLines={1}
       >
-        PMES - Analyse 
+        PMES - Analyse
       </Heading>
       <Anchor />
       <Button colorScheme="blue" mb={4} onClick={() => setShowForm(!showForm)}>

@@ -1,14 +1,8 @@
 import { useState, useEffect } from "react";
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  Select,
-} from "@chakra-ui/react";
-import { DatePicker, Space } from 'antd';
+import { Box, Button, FormControl, FormLabel, Select } from "@chakra-ui/react";
+import { DatePicker, Space } from "antd";
 import axios from "axios";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 
 const AddAnalyseForm = ({ onAdd }) => {
   const [formData, setFormData] = useState({
@@ -74,7 +68,10 @@ const AddAnalyseForm = ({ onAdd }) => {
       );
       onAdd(response.data);
     } catch (error) {
-      console.error("Error adding data:", error.response ? error.response.data : error.message);
+      console.error(
+        "Error adding data:",
+        error.response ? error.response.data : error.message
+      );
     }
   };
 
@@ -87,19 +84,27 @@ const AddAnalyseForm = ({ onAdd }) => {
       <FormControl>
         <FormLabel>Date Prelevement</FormLabel>
         <Space direction="vertical">
-          <DatePicker 
+          <DatePicker
             name="date_prelevement"
-            onChange={(date, dateString) => handleDateChange(date, dateString, "date_prelevement")}
-            value={formData.date_prelevement ? dayjs(formData.date_prelevement) : null}
+            onChange={(date, dateString) =>
+              handleDateChange(date, dateString, "date_prelevement")
+            }
+            value={
+              formData.date_prelevement
+                ? dayjs(formData.date_prelevement)
+                : null
+            }
           />
         </Space>
       </FormControl>
       <FormControl>
         <FormLabel>Date Gachage</FormLabel>
         <Space direction="vertical">
-          <DatePicker 
+          <DatePicker
             name="date_gachage"
-            onChange={(date, dateString) => handleDateChange(date, dateString, "date_gachage")}
+            onChange={(date, dateString) =>
+              handleDateChange(date, dateString, "date_gachage")
+            }
             value={formData.date_gachage ? dayjs(formData.date_gachage) : null}
           />
         </Space>

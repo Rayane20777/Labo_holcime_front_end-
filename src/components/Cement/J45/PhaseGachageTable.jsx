@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 // import { makeData, Person } from './makeData';
 import { Box, Text } from "@chakra-ui/react";
-import { format } from 'date-fns';
+import { format } from "date-fns";
 import {
-
   // flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -17,29 +16,34 @@ import {
 import EditableCell from "../../EditableCell";
 import DataTable from "../../DataTable";
 import Anchor from "./Anchor";
-import { Heading } from '@chakra-ui/react'
-import useDeleteRow from "../../DeleteRow"; 
-import DeleteButton from '../../DeleteButton';
-
-
-
+import { Heading } from "@chakra-ui/react";
+import useDeleteRow from "../../DeleteRow";
+import DeleteButton from "../../DeleteButton";
 
 const PhaseGachageTable = () => {
   const [data, setData] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { deleteRow, loading: deleteLoading, error: deleteError } = useDeleteRow('http://127.0.0.1:8000/api/phase_gachage', setData);
+  const {
+    deleteRow,
+    loading: deleteLoading,
+    error: deleteError,
+  } = useDeleteRow("http://127.0.0.1:8000/api/phase_gachage", setData);
 
   // Fetch data from the API
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/phase_gachage');
-        const filteredData = response.data.filter(item => item.analyse.matiere.nom === "J45");
+        const response = await axios.get(
+          "http://127.0.0.1:8000/api/phase_gachage"
+        );
+        const filteredData = response.data.filter(
+          (item) => item.analyse.matiere.nom === "J45"
+        );
         setData(filteredData);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
         setLoading(false);
       }
     };
@@ -49,8 +53,8 @@ const PhaseGachageTable = () => {
 
   const updateData = async (rowIndex, columnId, value) => {
     let formattedValue = value;
-    if (columnId === 'date_prelevement' || columnId === 'date_gachage') {
-      formattedValue = format(new Date(value), 'yyyy-MM-dd');
+    if (columnId === "date_prelevement" || columnId === "date_gachage") {
+      formattedValue = format(new Date(value), "yyyy-MM-dd");
     }
     const updatedRow = { ...data[rowIndex], [columnId]: formattedValue };
     const sendData = { ...updatedRow };
@@ -58,7 +62,7 @@ const PhaseGachageTable = () => {
     try {
       const requestUrl = `http://127.0.0.1:8000/api/phase_gachage/${updatedRow.id}`;
       const response = await axios.post(requestUrl, sendData);
-      console.log('Update response:', response);
+      console.log("Update response:", response);
 
       setData((prevData) => {
         const newData = [...prevData];
@@ -69,7 +73,7 @@ const PhaseGachageTable = () => {
       console.error("Error updating data:", error);
     }
   };
-  
+
   const columns = [
     {
       accessorKey: "temperature",
@@ -106,7 +110,6 @@ const PhaseGachageTable = () => {
       header: "Temps Casse",
       cell: EditableCell,
       size: 150,
-  
     },
     {
       accessorKey: "analyse.destination.nom",
@@ -140,7 +143,8 @@ const PhaseGachageTable = () => {
     getSortedRowModel: getSortedRowModel(),
     columnResizeMode: "onChange",
     meta: {
-      updateData: (rowIndex, columnId, value) => updateData(rowIndex, columnId, value),
+      updateData: (rowIndex, columnId, value) =>
+        updateData(rowIndex, columnId, value),
     },
   });
 
@@ -150,19 +154,23 @@ const PhaseGachageTable = () => {
 
   return (
     <Box>
-            <Heading
-      style={{marginLeft: 20,padding: 10}}
-      as='h2' size='2xl' noOfLines={1}>
-    J45 - Phase Gachage
-  </Heading>
+      <Heading
+        style={{ marginLeft: 20, padding: 10 }}
+        as="h2"
+        size="2xl"
+        noOfLines={1}
+      >
+        J45 - Phase Gachage
+      </Heading>
       <Anchor />
       <DataTable
         table={table}
         columnFilters={columnFilters}
         setColumnFilters={setColumnFilters}
       />
-          {deleteLoading && <Text>Deleting...</Text>}
-          {deleteError && <Text>Error deleting data: {deleteError.message}</Text>}</Box>
+      {deleteLoading && <Text>Deleting...</Text>}
+      {deleteError && <Text>Error deleting data: {deleteError.message}</Text>}
+    </Box>
   );
 };
 

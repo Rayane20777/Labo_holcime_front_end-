@@ -1,9 +1,14 @@
-import { HStack, Icon, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import {
+  HStack,
+  Icon,
+  Input,
+  InputGroup,
+  InputLeftElement,
+} from "@chakra-ui/react";
 import SearchIcon from "../icons/SearchIcon";
 
 const Filters = ({ columnId, columnFilters, setColumnFilters }) => {
   const filterValue = columnFilters.find((f) => f.id === columnId)?.value || "";
-  
 
   const onFilterChange = (id, value) => {
     setColumnFilters((prev) => {
@@ -11,7 +16,7 @@ const Filters = ({ columnId, columnFilters, setColumnFilters }) => {
 
       if (value) {
         newFilters.push({ id, value });
-        console.log(newFilters)
+        console.log(newFilters);
       }
       return newFilters;
     });
@@ -24,9 +29,9 @@ const Filters = ({ columnId, columnFilters, setColumnFilters }) => {
           <Icon as={SearchIcon} />
         </InputLeftElement>
         <Input
-        style={{
-          backgroundColor:"#368014"
-        }}
+          style={{
+            backgroundColor: "#368014",
+          }}
           type="text"
           variant="filled"
           placeholder={columnId}

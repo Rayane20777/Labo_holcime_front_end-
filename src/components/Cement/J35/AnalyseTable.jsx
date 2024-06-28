@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Box, Text,Button } from "@chakra-ui/react";
+import { Box, Text, Button } from "@chakra-ui/react";
 import { format } from "date-fns";
 import {
   getCoreRowModel,
@@ -76,7 +76,7 @@ const AnalyseTable = () => {
   };
   const addAnalyse = (newAnalyse) => {
     setData((prevData) => [newAnalyse, ...prevData]);
-    setShowForm(false); 
+    setShowForm(false);
   };
 
   const columns = [
@@ -174,7 +174,7 @@ const AnalyseTable = () => {
         columnFilters={columnFilters}
         setColumnFilters={setColumnFilters}
       />
-       {deleteLoading && <Text>Deleting...</Text>}
+      {deleteLoading && <Text>Deleting...</Text>}
       {deleteError && <Text>Error deleting data: {deleteError.message}</Text>}
       {showFormsContainer && (
         <FormsContainer analyseId={selectedAnalyseId} />

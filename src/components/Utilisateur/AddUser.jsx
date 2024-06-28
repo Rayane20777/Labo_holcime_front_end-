@@ -22,8 +22,14 @@ const AddUser = ({ onAdd }) => {
   useEffect(() => {
     const fetchOptions = async () => {
       try {
+        const token = localStorage.getItem("token");
         const rolesResponse = await axios.get(
-          "http://127.0.0.1:8000/api/role"
+          "http://127.0.0.1:8000/api/role",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         setRoles(rolesResponse.data);
         // Set default role to the first role if roles are available
@@ -48,10 +54,16 @@ const AddUser = ({ onAdd }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
         "http://127.0.0.1:8000/api/user",
-        formData
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       onAdd(response.data);
     } catch (error) {
@@ -84,11 +96,7 @@ const AddUser = ({ onAdd }) => {
       </FormControl>
       <FormControl>
         <FormLabel>Role</FormLabel>
-        <Select
-          name="role"
-          value={formData.role}
-          onChange={handleChange}
-        >
+        <Select name="role" value={formData.role} onChange={handleChange}>
           {roles.map((role) => (
             <option key={role.name} value={role.name}>
               {role.name}

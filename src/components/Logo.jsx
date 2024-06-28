@@ -1,15 +1,14 @@
-import { FireFilled } from '@ant-design/icons';
+import { FireFilled } from "@ant-design/icons";
 const Logo = () => {
-    return (
-        <>
-        <div className="logo">
-            <div className="logo-icon">
-                <FireFilled />
-            </div>
+  return (
+    <>
+      <div className="logo">
+        <div className="logo-icon">
+          <FireFilled />
         </div>
-        </>
-    )
-}
+      </div>
+    </>
+  );
+};
 
-
-export default Logo
+export default Logo;

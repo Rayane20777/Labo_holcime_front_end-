@@ -7,7 +7,7 @@ const Login = () => {
   const { setToken, setUser } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     username: "",
-    password: ""
+    password: "",
   });
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const Login = () => {
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -23,11 +23,11 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await instance.post("/login", formData);
-      console.log(response.data.data.user)
+      console.log(response.data.data.user);
       setToken(response.data.data.authorization.token);
       setUser(JSON.stringify(response.data.data.user));
       setErrors({});
-      navigate("/"); 
+      navigate("/");
     } catch (error) {
       setErrors(error.response.data.errors || { message: "Login failed" });
       console.error("Login failed:", error);

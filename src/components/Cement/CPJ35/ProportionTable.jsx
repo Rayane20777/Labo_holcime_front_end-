@@ -165,10 +165,13 @@ const ProportionTable = () => {
   return (
     <Box>
       <Heading
-      style={{marginLeft: 20,padding: 10}}
-      as='h2' size='2xl' noOfLines={1}>
-    CPJ35 - Proportion
-  </Heading>
+        style={{ marginLeft: 20, padding: 10 }}
+        as="h2"
+        size="2xl"
+        noOfLines={1}
+      >
+        CPJ35 - Proportion
+      </Heading>
       <Anchor />
       <DataTable
         table={table}

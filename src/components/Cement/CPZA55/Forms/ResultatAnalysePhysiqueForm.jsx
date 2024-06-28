@@ -66,77 +66,41 @@ const PhaseGachageForm = ({ analyseId, onAdd }) => {
       <Box mb={4}>
         <FormControl mb={4}>
           <FormLabel>1j</FormLabel>
-          <Input
-            name="1j"
-            value={formData["1j"]}
-            onChange={handleChange}
-          />
+          <Input name="1j" value={formData["1j"]} onChange={handleChange} />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>2j </FormLabel>
-          <Input
-            name="2j"
-            value={formData["2j"]}
-            onChange={handleChange}
-          />
+          <Input name="2j" value={formData["2j"]} onChange={handleChange} />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>7j</FormLabel>
-          <Input
-            name="7j"
-            value={formData["7j"]}
-            onChange={handleChange}
-          />
+          <Input name="7j" value={formData["7j"]} onChange={handleChange} />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>28j</FormLabel>
-          <Input
-            name="28j"
-            value={formData["28j"]}
-            onChange={handleChange}
-          />
+          <Input name="28j" value={formData["28j"]} onChange={handleChange} />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>90j</FormLabel>
-          <Input
-            name="90j"
-            value={formData["90j"]}
-            onChange={handleChange}
-          />
+          <Input name="90j" value={formData["90j"]} onChange={handleChange} />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>w1</FormLabel>
-          <Input
-            name="w1"
-            value={formData.w1}
-            onChange={handleChange}
-          />
+          <Input name="w1" value={formData.w1} onChange={handleChange} />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>w2</FormLabel>
-          <Input
-            name="w2"
-            value={formData.w2}
-            onChange={handleChange}
-          />
+          <Input name="w2" value={formData.w2} onChange={handleChange} />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>w3</FormLabel>
-          <Input
-            name="w3"
-            value={formData.w3}
-            onChange={handleChange}
-          />
+          <Input name="w3" value={formData.w3} onChange={handleChange} />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>w4</FormLabel>
-          <Input
-            name="w4"
-            value={formData.w4}
-            onChange={handleChange}
-          />
+          <Input name="w4" value={formData.w4} onChange={handleChange} />
         </FormControl>
-       
+
         <Button colorScheme="blue" type="submit">
           Add Analyse Chimique
         </Button>

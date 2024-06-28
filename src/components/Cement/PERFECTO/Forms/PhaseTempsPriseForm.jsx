@@ -96,7 +96,7 @@ const PhaseGachageForm = ({ analyseId, onAdd }) => {
             onChange={handleChange}
           />
         </FormControl>
-       
+
         <Button colorScheme="blue" type="submit">
           Add Analyse Chimique
         </Button>

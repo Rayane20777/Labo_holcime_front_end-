@@ -12,11 +12,10 @@ const App = () => (
           style={{
             display: "flex",
             gap: "24px",
-            fontSize:"16px",
+            fontSize: "16px",
             fontWeight: "bold",
             textDecoration: "none",
             transition: "all 0.3s ease",
-
           }}
         >
           <Link to="/cpj35">Analyse</Link>
@@ -34,4 +33,3 @@ const App = () => (
 );
 
 export default App;
-

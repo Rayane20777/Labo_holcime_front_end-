@@ -45,8 +45,15 @@ const DestinationTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const token = localStorage.getItem("token");
+        console.log(token);
         const response = await axios.get(
-          "http://127.0.0.1:8000/api/destination"
+          "http://127.0.0.1:8000/api/destination",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         setData(response.data);
         setLoading(false);
@@ -62,8 +69,13 @@ const DestinationTable = () => {
     const updatedRow = { ...data[rowIndex], [columnId]: value };
     const sendData = { nom: updatedRow.nom, matiere_id: updatedRow.matiere_id };
     try {
+      const token = localStorage.getItem("token");
       const requestUrl = `http://127.0.0.1:8000/api/destination/${updatedRow.id}`;
-      const response = await axios.post(requestUrl, sendData); 
+      const response = await axios.post(requestUrl, sendData, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Set Authorization header with token
+        },
+      });
       console.log("Update response:", response);
 
       setData((prevData) => {

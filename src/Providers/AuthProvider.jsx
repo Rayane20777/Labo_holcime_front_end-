@@ -24,15 +24,13 @@ const AuthProvider = ({ children }) => {
       token,
       setToken,
       user,
-      setUser
+      setUser,
     }),
     [token, user]
   );
 
   return (
-    <AuthContext.Provider value={contextValue}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
 };
 

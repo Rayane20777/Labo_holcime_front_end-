@@ -1,14 +1,8 @@
 import { useState, useEffect } from "react";
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  Select,
-} from "@chakra-ui/react";
-import { DatePicker, Space } from 'antd';
+import { Box, Button, FormControl, FormLabel, Select } from "@chakra-ui/react";
+import { DatePicker, Space } from "antd";
 import axios from "axios";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 
 const AddAnalyseForm = ({ onAdd }) => {
   const [formData, setFormData] = useState({
@@ -74,7 +68,10 @@ const AddAnalyseForm = ({ onAdd }) => {
       );
       onAdd(response.data);
     } catch (error) {
-      console.error("Error adding data:", error.response ? error.response.data : error.message);
+      console.error(
+        "Error adding data:",
+        error.response ? error.response.data : error.message
+      );
     }
   };
 
@@ -84,63 +81,79 @@ const AddAnalyseForm = ({ onAdd }) => {
 
   return (
     <Box>
-    <Box style={{
-      display:"flex",
-    }} as="form" onSubmit={handleSubmit} mb={4}>
-           <FormControl
-      style={{width:"20%"}}>
-        <FormLabel>Date Prelevement</FormLabel>
-        <Space >
-          <DatePicker 
-            name="date_prelevement"
-            onChange={(date, dateString) => handleDateChange(date, dateString, "date_prelevement")}
-            value={formData.date_prelevement ? dayjs(formData.date_prelevement) : null}
-          />
-        </Space>
-      </FormControl>
-           <FormControl
-      style={{width:"20%"}}>
-        <FormLabel>Date Gachage</FormLabel>
-        <Space direction="vertical">
-          <DatePicker 
-            name="date_gachage"
-            onChange={(date, dateString) => handleDateChange(date, dateString, "date_gachage")}
-            value={formData.date_gachage ? dayjs(formData.date_gachage) : null}
-          />
-        </Space>
-      </FormControl>
-      <FormControl
-      style={{width:"20%"}}>
-        <FormLabel>Destination</FormLabel>
-        <Select
-          name="destination_id"
-          value={formData.destination_id}
-          onChange={handleChange}
-        >
-          {destinations.map((destination) => (
-            <option key={destination.id} value={destination.id}>
-              {destination.nom}
-            </option>
-          ))}
-        </Select>
-      </FormControl>
-           <FormControl
-      style={{width:"20%"}}>
-        <FormLabel>Point Echantillonage</FormLabel>
-        <Select
-          name="point_echantillonage_id"
-          value={formData.point_echantillonage_id}
-          onChange={handleChange}
-        >
-          {point_echantillonages.map((point) => (
-            <option key={point.id} value={point.id}>
-              {point.nom}
-            </option>
-          ))}
-        </Select>
-      </FormControl>
+      <Box
+        style={{
+          display: "flex",
+        }}
+        as="form"
+        onSubmit={handleSubmit}
+        mb={4}
+      >
+        <FormControl style={{ width: "20%" }}>
+          <FormLabel>Date Prelevement</FormLabel>
+          <Space>
+            <DatePicker
+              name="date_prelevement"
+              onChange={(date, dateString) =>
+                handleDateChange(date, dateString, "date_prelevement")
+              }
+              value={
+                formData.date_prelevement
+                  ? dayjs(formData.date_prelevement)
+                  : null
+              }
+            />
+          </Space>
+        </FormControl>
+        <FormControl style={{ width: "20%" }}>
+          <FormLabel>Date Gachage</FormLabel>
+          <Space direction="vertical">
+            <DatePicker
+              name="date_gachage"
+              onChange={(date, dateString) =>
+                handleDateChange(date, dateString, "date_gachage")
+              }
+              value={
+                formData.date_gachage ? dayjs(formData.date_gachage) : null
+              }
+            />
+          </Space>
+        </FormControl>
+        <FormControl style={{ width: "20%" }}>
+          <FormLabel>Destination</FormLabel>
+          <Select
+            name="destination_id"
+            value={formData.destination_id}
+            onChange={handleChange}
+          >
+            {destinations.map((destination) => (
+              <option key={destination.id} value={destination.id}>
+                {destination.nom}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl style={{ width: "20%" }}>
+          <FormLabel>Point Echantillonage</FormLabel>
+          <Select
+            name="point_echantillonage_id"
+            value={formData.point_echantillonage_id}
+            onChange={handleChange}
+          >
+            {point_echantillonages.map((point) => (
+              <option key={point.id} value={point.id}>
+                {point.nom}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
       </Box>
-      <Button style={{backgroundColor:"#3f6212",color:"white  "}} type="submit" colorScheme="blue" mt={4}>
+      <Button
+        style={{ backgroundColor: "#3f6212", color: "white  " }}
+        type="submit"
+        colorScheme="blue"
+        mt={4}
+      >
         Add Analyse
       </Button>
     </Box>

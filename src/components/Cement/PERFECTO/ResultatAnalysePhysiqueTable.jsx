@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Box, Text , Heading} from "@chakra-ui/react";
+import { Box, Text, Heading } from "@chakra-ui/react";
 import {
-
   // flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -15,28 +14,36 @@ import {
 import EditableCell from "../../EditableCell";
 import DataTable from "../../DataTable";
 import Anchor from "./Anchor";
-import useDeleteRow from "../../DeleteRow"; 
-import DeleteButton from '../../DeleteButton';
-
-
-
+import useDeleteRow from "../../DeleteRow";
+import DeleteButton from "../../DeleteButton";
 
 const ResultatAnalysePhysiqueTable = () => {
   const [data, setData] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { deleteRow, loading: deleteLoading, error: deleteError } = useDeleteRow('http://127.0.0.1:8000/api/resultat_analyse_physique', setData);
+  const {
+    deleteRow,
+    loading: deleteLoading,
+    error: deleteError,
+  } = useDeleteRow(
+    "http://127.0.0.1:8000/api/resultat_analyse_physique",
+    setData
+  );
 
   // Fetch data from the API
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/resultat_analyse_physique');
-        const filteredData = response.data.filter(item => item.analyse.matiere.nom === "PERFECTO");
+        const response = await axios.get(
+          "http://127.0.0.1:8000/api/resultat_analyse_physique"
+        );
+        const filteredData = response.data.filter(
+          (item) => item.analyse.matiere.nom === "PERFECTO"
+        );
         setData(filteredData);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
         setLoading(false);
       }
     };
@@ -55,7 +62,7 @@ const ResultatAnalysePhysiqueTable = () => {
     try {
       const requestUrl = `http://127.0.0.1:8000/api/resultat_analyse_physique/${updatedRow.id}`;
       const response = await axios.post(requestUrl, sendData);
-      console.log('Update response:', response);
+      console.log("Update response:", response);
 
       setData((prevData) => {
         const newData = [...prevData];
@@ -66,7 +73,7 @@ const ResultatAnalysePhysiqueTable = () => {
       console.error("Error updating data:", error);
     }
   };
- 
+
   const columns = [
     {
       accessorKey: "1j",
@@ -130,7 +137,7 @@ const ResultatAnalysePhysiqueTable = () => {
         <DeleteButton onClick={() => deleteRow(row.index, data)} />
       ),
     },
-  ];  
+  ];
 
   const table = useReactTable({
     data,
@@ -145,7 +152,8 @@ const ResultatAnalysePhysiqueTable = () => {
     getSortedRowModel: getSortedRowModel(),
     columnResizeMode: "onChange",
     meta: {
-      updateData: (rowIndex, columnId, value) => updateData(rowIndex, columnId, value),
+      updateData: (rowIndex, columnId, value) =>
+        updateData(rowIndex, columnId, value),
     },
   });
 
@@ -156,18 +164,22 @@ const ResultatAnalysePhysiqueTable = () => {
   return (
     <Box>
       <Heading
-      style={{marginLeft: 20,padding: 10}}
-      as='h2' size='2xl' noOfLines={1}>
-    PERFECTO - Resultat Physique
-  </Heading>
+        style={{ marginLeft: 20, padding: 10 }}
+        as="h2"
+        size="2xl"
+        noOfLines={1}
+      >
+        PERFECTO - Resultat Physique
+      </Heading>
       <Anchor />
       <DataTable
         table={table}
         columnFilters={columnFilters}
         setColumnFilters={setColumnFilters}
       />
-          {deleteLoading && <Text>Deleting...</Text>}
-          {deleteError && <Text>Error deleting data: {deleteError.message}</Text>}</Box>
+      {deleteLoading && <Text>Deleting...</Text>}
+      {deleteError && <Text>Error deleting data: {deleteError.message}</Text>}
+    </Box>
   );
 };
 

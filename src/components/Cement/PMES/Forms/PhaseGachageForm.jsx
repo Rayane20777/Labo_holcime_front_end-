@@ -100,11 +100,19 @@ const PhaseGachageForm = ({ analyseId, onAdd }) => {
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>Temps Gachage</FormLabel>
-          <Input name="temps_gachage" value={formData.temps_gachage} onChange={handleChange} />
+          <Input
+            name="temps_gachage"
+            value={formData.temps_gachage}
+            onChange={handleChange}
+          />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>Temps Casse</FormLabel>
-          <Input name="temps_casse" value={formData.temps_casse} onChange={handleChange} />
+          <Input
+            name="temps_casse"
+            value={formData.temps_casse}
+            onChange={handleChange}
+          />
         </FormControl>
         <Button colorScheme="blue" type="submit">
           Add Analyse Chimique

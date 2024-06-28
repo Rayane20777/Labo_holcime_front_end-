@@ -66,27 +66,15 @@ const PhaseGachageForm = ({ analyseId, onAdd }) => {
       <Box mb={4}>
         <FormControl mb={4}>
           <FormLabel>KK_G</FormLabel>
-          <Input
-            name="KK_G"
-            value={formData.KK_G}
-            onChange={handleChange}
-          />
+          <Input name="KK_G" value={formData.KK_G} onChange={handleChange} />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>&gt; CAL_G </FormLabel>
-          <Input
-            name="CAL_G"
-            value={formData.CAL_G}
-            onChange={handleChange}
-          />
+          <Input name="CAL_G" value={formData.CAL_G} onChange={handleChange} />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>&gt;CV_G</FormLabel>
-          <Input
-            name="CV_G"
-            value={formData.CV_G}
-            onChange={handleChange}
-          />
+          <Input name="CV_G" value={formData.CV_G} onChange={handleChange} />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>LAIT_G</FormLabel>
@@ -98,19 +86,11 @@ const PhaseGachageForm = ({ analyseId, onAdd }) => {
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>GYPSE</FormLabel>
-          <Input
-            name="GYPSE"
-            value={formData.GYPSE}
-            onChange={handleChange}
-          />
+          <Input name="GYPSE" value={formData.GYPSE} onChange={handleChange} />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>KK_NG</FormLabel>
-          <Input
-            name="KK_NG"
-            value={formData.KK_NG}
-            onChange={handleChange}
-          />
+          <Input name="KK_NG" value={formData.KK_NG} onChange={handleChange} />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>CAL_NG</FormLabel>
@@ -122,11 +102,7 @@ const PhaseGachageForm = ({ analyseId, onAdd }) => {
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>CV_NG</FormLabel>
-          <Input
-            name="CV_NG"
-            value={formData.CV_NG}
-            onChange={handleChange}
-          />
+          <Input name="CV_NG" value={formData.CV_NG} onChange={handleChange} />
         </FormControl>
         <FormControl mb={4}>
           <FormLabel>LAIT_NG</FormLabel>
@@ -136,7 +112,7 @@ const PhaseGachageForm = ({ analyseId, onAdd }) => {
             onChange={handleChange}
           />
         </FormControl>
-       
+
         <Button colorScheme="blue" type="submit">
           Add Analyse Chimique
         </Button>

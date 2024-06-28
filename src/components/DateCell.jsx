@@ -6,14 +6,7 @@ import CalendarIcon from "./icons/CalendarIcon";
 
 const DateCustomInput = forwardRef(({ value, onClick, clearDate }, ref) => (
   <Center ref={ref} onClick={onClick} cursor="pointer" position="relative">
-    {value ? (
-      <>
-        {value}
-        
-      </>
-    ) : (
-      <Icon as={CalendarIcon} fontSize="xl" />
-    )}
+    {value ? <>{value}</> : <Icon as={CalendarIcon} fontSize="xl" />}
   </Center>
 ));
 

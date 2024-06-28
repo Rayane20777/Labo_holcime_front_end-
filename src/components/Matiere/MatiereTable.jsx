@@ -19,9 +19,7 @@ const columns = [
     size: 225,
     enableColumnFilter: true,
     filterFn: "includesString",
-    
   },
-
 ];
 
 const MatiereTable = () => {
@@ -33,11 +31,11 @@ const MatiereTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/matiere');
+        const response = await axios.get("http://127.0.0.1:8000/api/matiere");
         setData(response.data);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
         setLoading(false);
       }
     };
@@ -53,9 +51,12 @@ const MatiereTable = () => {
     setData(updatedData);
 
     try {
-      await axios.post(`http://127.0.0.1:8000/api/matiere/${updatedRow.id}`, updatedRow);
+      await axios.post(
+        `http://127.0.0.1:8000/api/matiere/${updatedRow.id}`,
+        updatedRow
+      );
     } catch (error) {
-      console.error('Error updating data:', error);
+      console.error("Error updating data:", error);
     }
   };
 
@@ -72,7 +73,8 @@ const MatiereTable = () => {
     getSortedRowModel: getSortedRowModel(),
     columnResizeMode: "onChange",
     meta: {
-      updateData: (rowIndex, columnId, value) => updateData(rowIndex, columnId, value),
+      updateData: (rowIndex, columnId, value) =>
+        updateData(rowIndex, columnId, value),
     },
   });
 
@@ -86,8 +88,7 @@ const MatiereTable = () => {
         columnFilters={columnFilters}
         setColumnFilters={setColumnFilters}
       />
-      <Box
-       className="table" w={table.getTotalSize()}>
+      <Box className="table" w={table.getTotalSize()}>
         {table.getHeaderGroups().map((headerGroup) => (
           <Box className="tr" key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
@@ -135,14 +136,14 @@ const MatiereTable = () => {
       </Text>
       <ButtonGroup size="sm" isAttached variant="outline">
         <Button
-        style={{ color: 'black', borderColor: 'black' }}
+          style={{ color: "black", borderColor: "black" }}
           onClick={() => table.previousPage()}
           isDisabled={!table.getCanPreviousPage()}
         >
           {"<"}
         </Button>
         <Button
-        style={{ color: 'black', borderColor: 'black' }}
+          style={{ color: "black", borderColor: "black" }}
           onClick={() => table.nextPage()}
           isDisabled={!table.getCanNextPage()}
         >

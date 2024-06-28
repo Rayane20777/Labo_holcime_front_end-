@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 // import { makeData, Person } from './makeData';
-import { Box, Text ,Heading} from "@chakra-ui/react";
+import { Box, Text, Heading } from "@chakra-ui/react";
 import {
-
   // flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -16,122 +15,124 @@ import {
 import EditableCell from "../../EditableCell";
 import DataTable from "../../DataTable";
 import Anchor from "./Anchor";
-import useDeleteRow from "../../DeleteRow"; 
-import DeleteButton from '../../DeleteButton';
-
-
+import useDeleteRow from "../../DeleteRow";
+import DeleteButton from "../../DeleteButton";
 
 const XrfTable = () => {
   const [data, setData] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { deleteRow, loading: deleteLoading, error: deleteError } = useDeleteRow('http://127.0.0.1:8000/api/xrf', setData);
-  
+  const {
+    deleteRow,
+    loading: deleteLoading,
+    error: deleteError,
+  } = useDeleteRow("http://127.0.0.1:8000/api/xrf", setData);
+
   // Fetch data from the API
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/xrf');
-        const filteredData = response.data.filter(item => item.analyse.matiere.nom === "PMVC");
+        const response = await axios.get("http://127.0.0.1:8000/api/xrf");
+        const filteredData = response.data.filter(
+          (item) => item.analyse.matiere.nom === "PMVC"
+        );
         setData(filteredData);
         setLoading(false);
-        console.log(filteredData)
-        } catch (error) {
-          console.error('Error fetching data:', error);
-          setLoading(false);
-          }
-          };
-          
-          fetchData();
-          }, []);
-          
-          const updateData = async (rowIndex, columnId, value) => {
-            let formattedValue = value;
-            const updatedRow = { ...data[rowIndex], [columnId]: formattedValue };
-            const sendData = { ...updatedRow };
-            try {
-              const requestUrl = `http://127.0.0.1:8000/api/xrf/${updatedRow.id}`;
-              const response = await axios.post(requestUrl, sendData);
-              console.log('Update response:', response);
-              
-              setData((prevData) => {
-                const newData = [...prevData];
-                newData[rowIndex] = updatedRow;
-                return newData;
-                
-                });
-                } catch (error) {
-                  console.error("Error updating data:", error);
-                  }
-                  };
-                  
-                  
-                  const columns = [
-                    {
-                      accessorKey: "SiO2",
-                      header: "SiO2",
-                      cell: EditableCell,
-                    },
-                    {
-                      accessorKey: "Al2O3",
-                      header: "Al2O3",
-                      cell: EditableCell,
-                    },
-                    {
-                      accessorKey: "Fe2O3",
-                      header: "Fe2O3",
-                      cell: EditableCell,
-                    },
-                    {
-                      accessorKey: "CaO",
-                      header: "CaO",
-                      cell: EditableCell,
-                    },
-                    {
-                      accessorKey: "MgO",
-                      header: "MgO",
-                      cell: EditableCell,
-                    },
-                    {
-                      accessorKey: "SO3",
-                      header: "SO3",
-                      cell: EditableCell,
-                    },
-                    {
-                      accessorKey: "K2O",
-                      header: "K2O",
-                      cell: EditableCell,
-                    },
-                    {
-                      accessorKey: "Na2O",
-                      header: "Na2O",
-                      cell: EditableCell,
-                    },
-                    {
-                      accessorKey: "P2O5",
-                      header: "P2O5",
-                      cell: EditableCell,
-                    },
-                    {
-                      accessorKey: "analyse.destination.nom",
-                      header: "Destination",
-                      size: 150,
-                    },
-                    {
-                      accessorKey: "analyse.point_echantillonage.nom",
-                      header: "Point echantillonage",
-                      size: 150,
-                    },
-                    {
-                      id: "actions",
-                      header: "Actions",
-                      cell: ({ row }) => (
-                        <DeleteButton onClick={() => deleteRow(row.index, data)} />
-                      ),
-                    },
-                  ];
-                  const table = useReactTable({
-                    data,
+        console.log(filteredData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const updateData = async (rowIndex, columnId, value) => {
+    let formattedValue = value;
+    const updatedRow = { ...data[rowIndex], [columnId]: formattedValue };
+    const sendData = { ...updatedRow };
+    try {
+      const requestUrl = `http://127.0.0.1:8000/api/xrf/${updatedRow.id}`;
+      const response = await axios.post(requestUrl, sendData);
+      console.log("Update response:", response);
+
+      setData((prevData) => {
+        const newData = [...prevData];
+        newData[rowIndex] = updatedRow;
+        return newData;
+      });
+    } catch (error) {
+      console.error("Error updating data:", error);
+    }
+  };
+
+  const columns = [
+    {
+      accessorKey: "SiO2",
+      header: "SiO2",
+      cell: EditableCell,
+    },
+    {
+      accessorKey: "Al2O3",
+      header: "Al2O3",
+      cell: EditableCell,
+    },
+    {
+      accessorKey: "Fe2O3",
+      header: "Fe2O3",
+      cell: EditableCell,
+    },
+    {
+      accessorKey: "CaO",
+      header: "CaO",
+      cell: EditableCell,
+    },
+    {
+      accessorKey: "MgO",
+      header: "MgO",
+      cell: EditableCell,
+    },
+    {
+      accessorKey: "SO3",
+      header: "SO3",
+      cell: EditableCell,
+    },
+    {
+      accessorKey: "K2O",
+      header: "K2O",
+      cell: EditableCell,
+    },
+    {
+      accessorKey: "Na2O",
+      header: "Na2O",
+      cell: EditableCell,
+    },
+    {
+      accessorKey: "P2O5",
+      header: "P2O5",
+      cell: EditableCell,
+    },
+    {
+      accessorKey: "analyse.destination.nom",
+      header: "Destination",
+      size: 150,
+    },
+    {
+      accessorKey: "analyse.point_echantillonage.nom",
+      header: "Point echantillonage",
+      size: 150,
+    },
+    {
+      id: "actions",
+      header: "Actions",
+      cell: ({ row }) => (
+        <DeleteButton onClick={() => deleteRow(row.index, data)} />
+      ),
+    },
+  ];
+  const table = useReactTable({
+    data,
     columns,
     state: {
       columnFilters,
@@ -143,7 +144,8 @@ const XrfTable = () => {
     getSortedRowModel: getSortedRowModel(),
     columnResizeMode: "onChange",
     meta: {
-      updateData: (rowIndex, columnId, value) => updateData(rowIndex, columnId, value),
+      updateData: (rowIndex, columnId, value) =>
+        updateData(rowIndex, columnId, value),
     },
   });
 
@@ -153,7 +155,7 @@ const XrfTable = () => {
 
   return (
     <Box>
-       <Heading
+      <Heading
         style={{ marginLeft: 20, padding: 10 }}
         as="h2"
         size="2xl"
@@ -167,9 +169,10 @@ const XrfTable = () => {
         columnFilters={columnFilters}
         setColumnFilters={setColumnFilters}
       />
-      
+
       {deleteLoading && <Text>Deleting...</Text>}
-      {deleteError && <Text>Error deleting data: {deleteError.message}</Text>}</Box>
+      {deleteError && <Text>Error deleting data: {deleteError.message}</Text>}
+    </Box>
   );
 };
 
