@@ -7,7 +7,7 @@ import {
   Input,
   Select,
 } from "@chakra-ui/react";
-import axios from "axios";
+import instance from "../../api/api"; 
 
 const AddDestination = ({ onAdd }) => {
   const [formData, setFormData] = useState({ nom: "", matiere_id: "" });
@@ -17,15 +17,8 @@ const AddDestination = ({ onAdd }) => {
   useEffect(() => {
     const fetchOptions = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const matieresResponse = await axios.get(
-          "http://127.0.0.1:8000/api/matiere",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const matieresResponse = await instance("get", "matiere");
+
         setMatieres(matieresResponse.data);
         setLoading(false);
       } catch (error) {
@@ -43,16 +36,8 @@ const AddDestination = ({ onAdd }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/destination",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await instance("post", `destination`, formData );
+
       onAdd(response.data);
     } catch (error) {
       console.error(

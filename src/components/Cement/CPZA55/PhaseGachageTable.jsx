@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import instance from "../../../api/api";
 import { Box, Text } from "@chakra-ui/react";
 import { format } from "date-fns";
 import {
@@ -30,9 +30,8 @@ const PhaseGachageTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/api/phase_gachage"
-        );
+        const response = await instance("get", "phase_gachage");
+
         const filteredData = response.data.filter(
           (item) => item.analyse.matiere.nom === "CPZA55"
         );
@@ -56,8 +55,8 @@ const PhaseGachageTable = () => {
     const sendData = { ...updatedRow };
 
     try {
-      const requestUrl = `http://127.0.0.1:8000/api/phase_gachage/${updatedRow.id}`;
-      const response = await axios.post(requestUrl, sendData);
+      const response = await instance("post", `phase_gachage/${updatedRow.id}`, sendData);
+
       console.log("Update response:", response);
 
       setData((prevData) => {

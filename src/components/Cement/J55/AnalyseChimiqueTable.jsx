@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import instance from "../../../api/api";
 // import { makeData, Person } from './makeData';
 import { Box, Text } from "@chakra-ui/react";
 import { format } from "date-fns";
@@ -34,9 +34,8 @@ const AnalyseChimiqueTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/api/analyse_chimique"
-        );
+        const response = await instance("get", "analyse_chimique");
+
         const filteredData = response.data.filter(
           (item) => item.analyse.matiere.nom === "J55"
         );
@@ -60,8 +59,8 @@ const AnalyseChimiqueTable = () => {
     const sendData = { ...updatedRow };
 
     try {
-      const requestUrl = `http://127.0.0.1:8000/api/analyse_chimique/${updatedRow.id}`;
-      const response = await axios.post(requestUrl, sendData);
+      const response = await instance("post", `analyse_chimique/${updatedRow.id}`, sendData);
+
       console.log("Update response:", response);
 
       setData((prevData) => {

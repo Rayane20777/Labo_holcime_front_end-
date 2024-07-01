@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-// import { makeData, Person } from './makeData';
+import instance from "../../../api/api"; 
 import { Box, Text } from "@chakra-ui/react";
 import {
-  // flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-// import Filters from "./Filters";
-// import SortIcon from "../icons/SortIcon";
 import EditableCell from "../../EditableCell";
 import DataTable from "../../DataTable";
 import Anchor from "./Anchor";
@@ -33,9 +29,8 @@ const AnalyseChimiqueTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/api/analyse_chimique"
-        );
+        const response = await instance("get", "analyse_chimique");
+        console.log(response)
         const filteredData = response.data.filter(
           (item) => item.analyse.matiere.nom === "CPJ35"
         );
@@ -52,15 +47,15 @@ const AnalyseChimiqueTable = () => {
 
   const updateData = async (rowIndex, columnId, value) => {
     let formattedValue = value;
-
+  
     const updatedRow = { ...data[rowIndex], [columnId]: formattedValue };
     const sendData = { ...updatedRow };
-
+  
     try {
-      const requestUrl = `http://127.0.0.1:8000/api/analyse_chimique/${updatedRow.id}`;
-      const response = await axios.post(requestUrl, sendData);
-      console.log("Update response:", response);
+      const response = await instance("post", `analyse_chimique/${updatedRow.id}`, sendData);
 
+      console.log("Update response:", response);
+  
       setData((prevData) => {
         const newData = [...prevData];
         newData[rowIndex] = updatedRow;
@@ -70,6 +65,7 @@ const AnalyseChimiqueTable = () => {
       console.error("Error updating data:", error);
     }
   };
+  
 
   const columns = [
     {

@@ -7,7 +7,7 @@ import {
   Input,
   Select,
 } from "@chakra-ui/react";
-import axios from "axios";
+import instance from "../../api/api";
 
 const AddPointEchantillonage = ({ onAdd }) => {
   const [formData, setFormData] = useState({ nom: "", matiere_id: "" });
@@ -17,9 +17,8 @@ const AddPointEchantillonage = ({ onAdd }) => {
   useEffect(() => {
     const fetchOptions = async () => {
       try {
-        const matieresResponse = await axios.get(
-          "http://127.0.0.1:8000/api/matiere"
-        );
+        const matieresResponse = await instance("get", "matiere");
+
         setMatieres(matieresResponse.data);
         setLoading(false);
       } catch (error) {
@@ -37,16 +36,8 @@ const AddPointEchantillonage = ({ onAdd }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/point_echantillonage",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await instance("post", `point_echantillonage`, formData );
+
       onAdd(response.data);
     } catch (error) {
       console.error(

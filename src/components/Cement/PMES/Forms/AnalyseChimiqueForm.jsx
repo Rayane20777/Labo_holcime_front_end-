@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import instance from "../../../../api/api";
 import { Box, FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 
 const AnalyseChimiqueForm = ({ analyseId, onAdd }) => {
@@ -40,8 +40,8 @@ const AnalyseChimiqueForm = ({ analyseId, onAdd }) => {
     console.log("formData:", formData);
 
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/analyse_chimique",
+      const response = await instance.post(
+        "analyse_chimique",
         formData
       );
       console.log(response.data);

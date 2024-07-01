@@ -28,7 +28,7 @@ const Filters = ({ columnFilters, setColumnFilters }) => {
         </InputLeftElement>
         <Input
           style={{
-            backgroundColor: "#368014",
+            backgroundColor: "#71717a",
           }}
           type="text"
           variant="filled"

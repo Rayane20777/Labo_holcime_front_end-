@@ -8,7 +8,7 @@ const DataTable = ({ table, columnFilters, setColumnFilters }) => {
     <Box>
       <Box
         style={{
-          overflowX: "scroll",
+          overflow: "scroll",
         }}
       >
         <Box className="table" w={table.getTotalSize()}>

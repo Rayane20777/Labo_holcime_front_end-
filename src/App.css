@@ -3,10 +3,11 @@
 }
 
 .gradient-background {
-  background: url("./assets/image.png");
+  /* background: url("./assets/image.png");
   background-size: 1000%;
   background-position: center;
-  object-fit: cover;
+  object-fit: cover; */
+  background-color: hsla(195, 3%, 76%, 0.75);
 }
 
 ca .App-logo {

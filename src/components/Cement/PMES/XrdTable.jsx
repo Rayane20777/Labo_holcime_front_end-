@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import instance from "../../../api/api";
 // import { makeData, Person } from './makeData';
 import { Box, Text, Heading } from "@chakra-ui/react";
 import {
@@ -32,7 +32,7 @@ const XrdTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/xrd");
+        const response = await instance("get", "xrd");
         const filteredData = response.data.filter(
           (item) => item.analyse.matiere.nom === "PMES"
         );
@@ -53,8 +53,8 @@ const XrdTable = () => {
     const updatedRow = { ...data[rowIndex], [columnId]: formattedValue };
     const sendData = { ...updatedRow };
     try {
-      const requestUrl = `http://127.0.0.1:8000/api/Xrd/${updatedRow.id}`;
-      const response = await axios.post(requestUrl, sendData);
+      const response = await instance("post", `xrd/${updatedRow.id}`, sendData);
+
       console.log("Update response:", response);
 
       setData((prevData) => {

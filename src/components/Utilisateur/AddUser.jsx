@@ -7,7 +7,8 @@ import {
   Input,
   Select,
 } from "@chakra-ui/react";
-import axios from "axios";
+// import axios from "axios";
+import instance from "../../api/api";
 
 const AddUser = ({ onAdd }) => {
   const [formData, setFormData] = useState({
@@ -22,17 +23,11 @@ const AddUser = ({ onAdd }) => {
   useEffect(() => {
     const fetchOptions = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const rolesResponse = await axios.get(
-          "http://127.0.0.1:8000/api/role",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+
+
+        const rolesResponse = await instance("get", "role");
+
         setRoles(rolesResponse.data);
-        // Set default role to the first role if roles are available
         if (rolesResponse.data.length > 0) {
           setFormData((prev) => ({
             ...prev,
@@ -54,17 +49,9 @@ const AddUser = ({ onAdd }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("token");
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/user",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await instance("post", `user`, formData );
+
       onAdd(response.data);
     } catch (error) {
       console.error(

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import instance from "../../../../api/api";
 import { Box, FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 
 const PhaseGachageForm = ({ analyseId, onAdd }) => {
@@ -35,8 +35,8 @@ const PhaseGachageForm = ({ analyseId, onAdd }) => {
     console.log("formData:", formData);
 
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/phase_gachage",
+      const response = await instance.post(
+        "phase_gachage",
         formData
       );
       console.log(response.data);

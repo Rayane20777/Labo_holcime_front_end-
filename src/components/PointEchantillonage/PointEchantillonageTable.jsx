@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { Box, Button, ButtonGroup, Icon, Text } from "@chakra-ui/react";
 import {
   flexRender,
@@ -13,6 +12,9 @@ import EditableCell from "../EditableCell";
 import Filters from "./Filters";
 import SortIcon from "../icons/SortIcon";
 import AddPointEchantillonage from "./AddPointEchantillonage";
+import instance from "../../api/api";
+
+
 const columns = [
   {
     accessorKey: "nom",
@@ -45,16 +47,9 @@ const MatiereTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get(
-          "http://127.0.0.1:8000/api/point_echantillonage",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setData(response.data);
+        const rolesResponse = await instance("get", "point_echantillonage");
+
+        setData(rolesResponse.data);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -68,13 +63,8 @@ const MatiereTable = () => {
     const updatedRow = { ...data[rowIndex], [columnId]: value };
     const sendData = { nom: updatedRow.nom, matiere_id: updatedRow.matiere_id };
     try {
-      const token = localStorage.getItem("token");
-      const requestUrl = `http://127.0.0.1:8000/api/point_echantillonage/${updatedRow.id}`;
-      const response = await axios.post(requestUrl, sendData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await instance("post", `point_echnantillonage/${updatedRow.id}`, sendData);
+
       console.log("Update response:", response);
 
       setData((prevData) => {

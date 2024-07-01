@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Box, Button, FormControl, FormLabel, Select } from "@chakra-ui/react";
 import { DatePicker, Space } from "antd";
-import axios from "axios";
+import instance from "../../../../api/api";
 import dayjs from "dayjs";
 
 const AddAnalyseForm = ({ onAdd }) => {
@@ -21,12 +21,8 @@ const AddAnalyseForm = ({ onAdd }) => {
   useEffect(() => {
     const fetchOptions = async () => {
       try {
-        const destinationsResponse = await axios.get(
-          "http://127.0.0.1:8000/api/destination"
-        );
-        const pointsResponse = await axios.get(
-          "http://127.0.0.1:8000/api/point_echantillonage"
-        );
+        const destinationsResponse = await instance('get', "destination");
+        const pointsResponse = await instance('get', "point_echantillonage");
         console.log("Points Response Data:", pointsResponse.data);
 
         const filteredDestinations = destinationsResponse.data.filter(
@@ -62,10 +58,7 @@ const AddAnalyseForm = ({ onAdd }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/analyse",
-        formData
-      );
+      const response = await instance("post", "analyse", formData);
       onAdd(response.data);
     } catch (error) {
       console.error(

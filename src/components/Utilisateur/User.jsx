@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import instance from "../../api/api"
 import { Box, Button, ButtonGroup, Icon, Text } from "@chakra-ui/react";
 import {
   flexRender,
@@ -26,12 +26,20 @@ const columns = [
 
   {
     accessorKey: "role",
-    header: "Matiere",
+    header: "Role",
     size: 200,
     cell: EditableCell,
     enableColumnFilter: true,
     filterFn: "includesString",
   },
+  // {
+  //   accessorKey: "password",
+  //   header: "Password",
+  //   size: 200,
+  //   cell: EditableCell,
+  //   enableColumnFilter: true,
+  //   filterFn: "includesString",
+  // },
 ];
 
 const UserTable = () => {
@@ -52,12 +60,8 @@ const UserTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get("http://127.0.0.1:8000/api/user", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await instance("get", "user");
+
         setData(response.data);
         setLoading(false);
       } catch (error) {
@@ -72,13 +76,8 @@ const UserTable = () => {
     const updatedRow = { ...data[rowIndex], [columnId]: value };
     const sendData = { username: updatedRow.username, role: updatedRow.role };
     try {
-      const token = localStorage.getItem("token");
-      const requestUrl = `http://127.0.0.1:8000/api/user/${updatedRow.id}`;
-      const response = await axios.post(requestUrl, sendData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await instance("post", `user/${updatedRow.id}`, sendData);
+
       console.log("Update response:", response);
 
       setData((prevData) => {

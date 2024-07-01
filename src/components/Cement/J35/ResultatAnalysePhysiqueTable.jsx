@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import instance from "../../../api/api";
 import { Box, Text } from "@chakra-ui/react";
 import {
   // flexRender,
@@ -35,9 +35,8 @@ const ResultatAnalysePhysiqueTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/api/resultat_analyse_physique"
-        );
+        const response = await instance("get", "resultat_analyse_physique");
+
         const filteredData = response.data.filter(
           (item) => item.analyse.matiere.nom === "J35"
         );
@@ -61,8 +60,8 @@ const ResultatAnalysePhysiqueTable = () => {
     const sendData = { ...updatedRow };
 
     try {
-      const requestUrl = `http://127.0.0.1:8000/api/resultat_analyse_physique/${updatedRow.id}`;
-      const response = await axios.post(requestUrl, sendData);
+      const response = await instance("post", `resultat_analyse_physique/${updatedRow.id}`, sendData);
+
       console.log("Update response:", response);
 
       setData((prevData) => {
