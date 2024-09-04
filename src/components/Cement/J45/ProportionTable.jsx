@@ -16,7 +16,9 @@ import {
 import EditableCell from "../../EditableCell";
 import DataTable from "../../DataTable";
 import Anchor from "./Anchor";
-import { Heading } from "@chakra-ui/react";
+import { hasRole } from "../../../utils/roleCheck";
+import { AuthContext } from "../../../Providers/AuthProvider";
+import { useContext } from "react";import { Heading } from "@chakra-ui/react";
 import useDeleteRow from "../../DeleteRow";
 import DeleteButton from "../../DeleteButton";
 
@@ -29,6 +31,7 @@ const ProportionTable = () => {
     loading: deleteLoading,
     error: deleteError,
   } = useDeleteRow("http://127.0.0.1:8000/api/proportion", setData);
+  const info = useContext(AuthContext);
 
   // Fetch data from the API
   useEffect(() => {
@@ -69,7 +72,7 @@ const ProportionTable = () => {
       console.error("Error updating data:", error);
     }
   };
-  const columns = [
+  let columns = [
     {
       accessorKey: "KK_G",
       header: "KK_G",
@@ -83,11 +86,6 @@ const ProportionTable = () => {
     {
       accessorKey: "CV_G",
       header: "CV_G",
-      cell: EditableCell,
-    },
-    {
-      accessorKey: "LAIT_G",
-      header: "LAIT_G",
       cell: EditableCell,
     },
     {
@@ -108,11 +106,6 @@ const ProportionTable = () => {
     {
       accessorKey: "CV_NG",
       header: "CV_NG",
-      cell: EditableCell,
-    },
-    {
-      accessorKey: "LAIT_NG",
-      header: "LAIT_NG",
       cell: EditableCell,
     },
     {
@@ -139,6 +132,9 @@ const ProportionTable = () => {
     },
   ];
 
+  if (!hasRole(info, "super_admin") ) {
+    columns = columns.filter((col) => col.id !== "actions");
+  }
   const table = useReactTable({
     data,
     columns,

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import instance from "../../api/api"
+import instance from "../../api/api";
 import { Box, Button, ButtonGroup, Icon, Text } from "@chakra-ui/react";
 import {
   flexRender,
@@ -13,40 +13,57 @@ import EditableCell from "../EditableCell";
 import Filters from "./Filters";
 import SortIcon from "../icons/SortIcon";
 import AddUser from "./AddUser";
-
-const columns = [
-  {
-    accessorKey: "username",
-    header: "Nom",
-    size: 200,
-    cell: EditableCell,
-    enableColumnFilter: true,
-    filterFn: "includesString",
-  },
-
-  {
-    accessorKey: "role",
-    header: "Role",
-    size: 200,
-    cell: EditableCell,
-    enableColumnFilter: true,
-    filterFn: "includesString",
-  },
-  // {
-  //   accessorKey: "password",
-  //   header: "Password",
-  //   size: 200,
-  //   cell: EditableCell,
-  //   enableColumnFilter: true,
-  //   filterFn: "includesString",
-  // },
-];
+import RoleSelectCell from "./RoleSelectCell";
+import ResetPassword from "./ResetPassword";
+import { LockFilled } from "@ant-design/icons";
 
 const UserTable = () => {
   const [data, setData] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [showPasswordForm, setShowPasswordForm] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null);
+
+  const handleResetPasswordClick = (userId) => {
+    setSelectedUserId(userId);
+    setShowPasswordForm(true);
+  };
+
+  let columns = [
+    {
+      accessorKey: "username",
+      header: "Nom",
+      size: 200,
+      cell: EditableCell,
+      enableColumnFilter: true,
+      filterFn: "includesString",
+    },
+    {
+      accessorKey: "role",
+      header: "Role",
+      size: 200,
+      cell: RoleSelectCell,
+      enableColumnFilter: true,
+      filterFn: "includesString",
+    },
+    {
+      header: "Action",
+      cell: ({ row }) => (
+        <Button
+          
+          onClick={() => handleResetPasswordClick(row.original.id)}
+        >
+          <LockFilled
+           
+        style={{
+          color: "black",
+        }}
+        />
+        </Button>
+      ),
+    },
+  ];
 
   const addUser = (newUser) => {
     if (!newUser.username || !newUser.role) {
@@ -76,7 +93,11 @@ const UserTable = () => {
     const updatedRow = { ...data[rowIndex], [columnId]: value };
     const sendData = { username: updatedRow.username, role: updatedRow.role };
     try {
-      const response = await instance("post", `user/${updatedRow.id}`, sendData);
+      const response = await instance(
+        "post",
+        `user/${updatedRow.id}`,
+        sendData
+      );
 
       console.log("Update response:", response);
 
@@ -111,6 +132,7 @@ const UserTable = () => {
 
   return (
     <Box>
+      
       <Filters
         columnFilters={columnFilters}
         setColumnFilters={setColumnFilters}
@@ -118,6 +140,12 @@ const UserTable = () => {
       <Button colorScheme="blue" mb={4} onClick={() => setShowForm(!showForm)}>
         {showForm ? "Cancel" : "Add New User"}
       </Button>
+      {showPasswordForm && (
+        <ResetPassword
+          userId={selectedUserId}
+          onPasswordChange={() => setShowPasswordForm(false)}
+        />
+      )}
       {showForm && <AddUser onAdd={addUser} />}
       <Box className="table" w={table.getTotalSize()}>
         {table.getHeaderGroups().map((headerGroup) => (

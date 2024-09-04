@@ -1,21 +1,20 @@
 import { useState, useEffect } from "react";
 import instance from "../../../api/api";
-// import { makeData, Person } from './makeData';
 import { Box, Text } from "@chakra-ui/react";
 import {
-  // flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-// import Filters from "./Filters";
-// import SortIcon from "../icons/SortIcon";
+
 import EditableCell from "../../EditableCell";
 import DataTable from "../../DataTable";
 import Anchor from "./Anchor";
-import { Heading } from "@chakra-ui/react";
+import { hasRole } from "../../../utils/roleCheck";
+import { AuthContext } from "../../../Providers/AuthProvider";
+import { useContext } from "react";import { Heading } from "@chakra-ui/react";
 import useDeleteRow from "../../DeleteRow";
 import DeleteButton from "../../DeleteButton";
 
@@ -28,8 +27,8 @@ const XrfTable = () => {
     loading: deleteLoading,
     error: deleteError,
   } = useDeleteRow("http://127.0.0.1:8000/api/xrf", setData);
+  const info = useContext(AuthContext);
 
-  // Fetch data from the API
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -68,7 +67,27 @@ const XrfTable = () => {
     }
   };
 
-  const columns = [
+  let columns = [
+    {
+      accessorKey: "analyse.date_gachage",
+      header: "Date Gachage",
+      size: 150,
+    },
+    {
+      accessorKey: "analyse.date_prelevement",
+      header: "Date Prelevement",
+      size: 150,
+    },
+    {
+      accessorKey: "analyse.destination.nom",
+      header: "Destination",
+      size: 150,
+    },
+    {
+      accessorKey: "analyse.point_echantillonage.nom",
+      header: "Point echantillonage",
+      size: 150,
+    },
     {
       accessorKey: "SiO2",
       header: "SiO2",
@@ -115,16 +134,6 @@ const XrfTable = () => {
       cell: EditableCell,
     },
     {
-      accessorKey: "analyse.destination.nom",
-      header: "Destination",
-      size: 150,
-    },
-    {
-      accessorKey: "analyse.point_echantillonage.nom",
-      header: "Point echantillonage",
-      size: 150,
-    },
-    {
       id: "actions",
       header: "Actions",
       cell: ({ row }) => (
@@ -133,6 +142,9 @@ const XrfTable = () => {
     },
   ];
 
+  if (!hasRole(info, "super_admin") ) {
+    columns = columns.filter((col) => col.id !== "actions");
+  }
   const table = useReactTable({
     data,
     columns,

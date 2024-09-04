@@ -2,12 +2,12 @@ import { Anchor } from "antd";
 import { Box } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
-import "../../../index.css";
+import "../../../style/index.css";
 
 const App = () => (
   <>
     <div style={{ padding: "20px" }}>
-      <Anchor direction="horizontal" className="custom-anchor">
+      <Anchor direction="horizontal" className="custom-anchor" affix={false}>
         <Box
           style={{
             display: "flex",
@@ -24,8 +24,9 @@ const App = () => (
           <Link to="/j55_temps_prise">Phase Temps Prise</Link>
           <Link to="/j55_proportion">Proportion</Link>
           <Link to="/j55_physique">Resultat Physique</Link>
-          <Link to="/j55_xrf">Analyse XRF</Link>
-          <Link to="/j55_xrd">Analyse XRD</Link>
+          <Link to="/j55_xrf">Analyse Xrf</Link>
+          <Link to="/j55_xrd">Analyse Xrd</Link>
+          <Link to="/j55_lpee">Lpee</Link>
         </Box>
       </Anchor>
     </div>

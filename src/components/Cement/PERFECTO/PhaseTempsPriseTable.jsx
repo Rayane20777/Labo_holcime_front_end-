@@ -16,7 +16,9 @@ import {
 import EditableCell from "../../EditableCell";
 import DataTable from "../../DataTable";
 import Anchor from "./Anchor";
-import useDeleteRow from "../../DeleteRow";
+import { hasRole } from "../../../utils/roleCheck";
+import { AuthContext } from "../../../Providers/AuthProvider";
+import { useContext } from "react";import useDeleteRow from "../../DeleteRow";
 import DeleteButton from "../../DeleteButton";
 
 const PhaseTempsPriseTable = () => {
@@ -28,6 +30,7 @@ const PhaseTempsPriseTable = () => {
     loading: deleteLoading,
     error: deleteError,
   } = useDeleteRow("http://127.0.0.1:8000/api/phase_temps_prise", setData);
+  const info = useContext(AuthContext);
 
   // Fetch data from the API
   useEffect(() => {
@@ -72,7 +75,27 @@ const PhaseTempsPriseTable = () => {
     }
   };
 
-  const columns = [
+  let columns = [
+    {
+      accessorKey: "analyse.date_gachage",
+      header: "Date Gachage",
+      size: 150,
+    },
+    {
+      accessorKey: "analyse.date_prelevement",
+      header: "Date Prelevement",
+      size: 150,
+    },
+    {
+      accessorKey: "analyse.destination.nom",
+      header: "Destination",
+      size: 150,
+    },
+    {
+      accessorKey: "analyse.point_echantillonage.nom",
+      header: "Point echantillonage",
+      size: 150,
+    },
     {
       accessorKey: "mass_volumique",
       header: "Mass volumique",
@@ -104,16 +127,6 @@ const PhaseTempsPriseTable = () => {
       size: 150,
     },
     {
-      accessorKey: "analyse.destination.nom",
-      header: "Destination",
-      size: 150,
-    },
-    {
-      accessorKey: "analyse.point_echantillonage.nom",
-      header: "Point echantillonage",
-      size: 150,
-    },
-    {
       id: "actions",
       header: "Actions",
       cell: ({ row }) => (
@@ -122,6 +135,9 @@ const PhaseTempsPriseTable = () => {
     },
   ];
 
+  if (!hasRole(info, "super_admin") ) {
+    columns = columns.filter((col) => col.id !== "actions");
+  }
   const table = useReactTable({
     data,
     columns,

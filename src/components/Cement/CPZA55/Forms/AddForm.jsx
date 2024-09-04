@@ -29,10 +29,10 @@ const AddAnalyseForm = ({ onAdd }) => {
         console.log(instance);
 
         const filteredDestinations = destinationsResponse.data.filter(
-          (destination) => destination.matiere.nom === "CPJ35"
+          (destination) => destination.matiere.nom === "CPZA55"
         );
         const filteredPoints = pointsResponse.data.filter(
-          (point) => point.matiere.nom === "CPJ35"
+          (point) => point.matiere.nom === "CPZA55"
         );
         setDestinations(filteredDestinations);
         setPoints(filteredPoints);

@@ -13,7 +13,7 @@ import Filters from "./Filters";
 import SortIcon from "../icons/SortIcon";
 import instance from "../../api/api"; 
 
-const columns = [
+let columns = [
   {
     accessorKey: "nom",
     header: "Nom",

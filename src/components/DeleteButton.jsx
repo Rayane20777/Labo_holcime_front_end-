@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button , Heading} from "@chakra-ui/react";
 import { DeleteOutlined } from "@ant-design/icons";
 
 const DeleteButton = ({ onClick }) => (

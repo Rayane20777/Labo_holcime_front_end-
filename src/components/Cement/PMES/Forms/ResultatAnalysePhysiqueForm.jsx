@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import instance from "../../../../api/api";
-import { Box, FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
+import { Button , Heading} from "@chakra-ui/react";
 
 const PhaseGachageForm = ({ analyseId, onAdd }) => {
   const [formData, setFormData] = useState({
@@ -9,10 +9,7 @@ const PhaseGachageForm = ({ analyseId, onAdd }) => {
     "7j": "",
     "28j": "",
     "90j": "",
-    w1: "",
-    w2: "",
-    w3: "",
-    w4: "",
+  
     analyse_id: analyseId ? analyseId.toString() : "",
   });
 
@@ -38,7 +35,7 @@ const PhaseGachageForm = ({ analyseId, onAdd }) => {
     console.log("formData:", formData);
 
     try {
-      const response = await instance.post(
+      const response = await instance("post",
         "resultat_analyse_physique",
         formData
       );
@@ -50,10 +47,7 @@ const PhaseGachageForm = ({ analyseId, onAdd }) => {
         "7j": "",
         "28j": "",
         "90j": "",
-        w1: "",
-        w2: "",
-        w3: "",
-        w4: "",
+      
         analyse_id: analyseId ? analyseId.toString() : "",
       });
     } catch (error) {
@@ -62,50 +56,95 @@ const PhaseGachageForm = ({ analyseId, onAdd }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Box mb={4}>
-        <FormControl mb={4}>
-          <FormLabel>1j</FormLabel>
-          <Input name="1j" value={formData["1j"]} onChange={handleChange} />
-        </FormControl>
-        <FormControl mb={4}>
-          <FormLabel>2j </FormLabel>
-          <Input name="2j" value={formData["2j"]} onChange={handleChange} />
-        </FormControl>
-        <FormControl mb={4}>
-          <FormLabel>7j</FormLabel>
-          <Input name="7j" value={formData["7j"]} onChange={handleChange} />
-        </FormControl>
-        <FormControl mb={4}>
-          <FormLabel>28j</FormLabel>
-          <Input name="28j" value={formData["28j"]} onChange={handleChange} />
-        </FormControl>
-        <FormControl mb={4}>
-          <FormLabel>90j</FormLabel>
-          <Input name="90j" value={formData["90j"]} onChange={handleChange} />
-        </FormControl>
-        <FormControl mb={4}>
-          <FormLabel>w1</FormLabel>
-          <Input name="w1" value={formData.w1} onChange={handleChange} />
-        </FormControl>
-        <FormControl mb={4}>
-          <FormLabel>w2</FormLabel>
-          <Input name="w2" value={formData.w2} onChange={handleChange} />
-        </FormControl>
-        <FormControl mb={4}>
-          <FormLabel>w3</FormLabel>
-          <Input name="w3" value={formData.w3} onChange={handleChange} />
-        </FormControl>
-        <FormControl mb={4}>
-          <FormLabel>w4</FormLabel>
-          <Input name="w4" value={formData.w4} onChange={handleChange} />
-        </FormControl>
+    <form onSubmit={handleSubmit} className="form">
+    <div className="inputs_container">
+      <div className="half">
+        <div className="halfed">
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="1j"
+              className="form__input"
+              id="1j"
+              name="1j"
+              value={formData["1j"]}
+              onChange={handleChange}
+            />
+            <label htmlFor="1j" className="form__label">
+              1j
+            </label>
+          </div>
 
-        <Button colorScheme="blue" type="submit">
-          Add Analyse Chimique
-        </Button>
-      </Box>
-    </form>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="2j"
+              className="form__input"
+              id="2j"
+              name="2j"
+              value={formData["2j"]}
+              onChange={handleChange}
+            />
+            <label htmlFor="2j" className="form__label">
+              2j
+            </label>
+          </div>
+        </div>
+
+        <div className="halfed">
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="7j"
+              className="form__input"
+              id="7j"
+              name="7j"
+              value={formData["7j"]}
+              onChange={handleChange}
+            />
+            <label htmlFor="7j" className="form__label">
+              7j
+            </label>
+          </div>
+
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="28j"
+              className="form__input"
+              id="28j"
+              name="28j"
+              value={formData["28j"]}
+              onChange={handleChange}
+            />
+            <label htmlFor="28j" className="form__label">
+              28j
+            </label>
+          </div>
+        </div>
+      </div>
+      
+      <div className="form-group">
+        <input
+          type="text"
+          placeholder="90j"
+          className="form__input"
+          id="90j"
+          name="90j"
+          value={formData["90j"]}
+          onChange={handleChange}
+        />
+        <label htmlFor="90j" className="form__label">
+          90j
+        </label>
+      </div>
+     
+    </div>
+
+    <Button style={{ backgroundColor: "#b3ba80" }} type="submit">
+      Add Analyse Chimique
+    </Button>
+  </form>
   );
 };
 

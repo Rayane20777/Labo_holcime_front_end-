@@ -16,7 +16,9 @@ import {
 import EditableCell from "../../EditableCell";
 import DataTable from "../../DataTable";
 import Anchor from "./Anchor";
-import useDeleteRow from "../../DeleteRow";
+import { hasRole } from "../../../utils/roleCheck";
+import { AuthContext } from "../../../Providers/AuthProvider";
+import { useContext } from "react";import useDeleteRow from "../../DeleteRow";
 import DeleteButton from "../../DeleteButton";
 
 const ProportionTable = () => {
@@ -28,6 +30,7 @@ const ProportionTable = () => {
     loading: deleteLoading,
     error: deleteError,
   } = useDeleteRow("http://127.0.0.1:8000/api/proportion", setData);
+  const info = useContext(AuthContext);
 
   // Fetch data from the API
   useEffect(() => {
@@ -69,7 +72,27 @@ const ProportionTable = () => {
     }
   };
 
-  const columns = [
+  let columns = [
+    {
+      accessorKey: "analyse.date_gachage",
+      header: "Date Gachage",
+      size: 150,
+    },
+    {
+      accessorKey: "analyse.date_prelevement",
+      header: "Date Prelevement",
+      size: 150,
+    },
+    {
+      accessorKey: "analyse.destination.nom",
+      header: "Destination",
+      size: 150,
+    },
+    {
+      accessorKey: "analyse.point_echantillonage.nom",
+      header: "Point echantillonage",
+      size: 150,
+    },
     {
       accessorKey: "KK_G",
       header: "KK_G",
@@ -83,11 +106,6 @@ const ProportionTable = () => {
     {
       accessorKey: "CV_G",
       header: "CV_G",
-      cell: EditableCell,
-    },
-    {
-      accessorKey: "LAIT_G",
-      header: "LAIT_G",
       cell: EditableCell,
     },
     {
@@ -111,25 +129,11 @@ const ProportionTable = () => {
       cell: EditableCell,
     },
     {
-      accessorKey: "LAIT_NG",
-      header: "LAIT_NG",
-      cell: EditableCell,
-    },
-    {
       accessorKey: "∑_Gypse",
       header: "∑_Gypse",
       cell: EditableCell,
     },
-    {
-      accessorKey: "analyse.destination.nom",
-      header: "Destination",
-      size: 200,
-    },
-    {
-      accessorKey: "analyse.point_echantillonage.nom",
-      header: "Point echantillonage",
-      size: 200,
-    },
+    
     {
       id: "actions",
       header: "Actions",
@@ -139,6 +143,9 @@ const ProportionTable = () => {
     },
   ];
 
+  if (!hasRole(info, "super_admin") ) {
+    columns = columns.filter((col) => col.id !== "actions");
+  }
   const table = useReactTable({
     data,
     columns,

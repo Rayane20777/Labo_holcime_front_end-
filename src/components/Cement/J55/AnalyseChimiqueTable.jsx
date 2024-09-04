@@ -16,7 +16,9 @@ import {
 import EditableCell from "../../EditableCell";
 import DataTable from "../../DataTable";
 import Anchor from "./Anchor";
-import { Heading } from "@chakra-ui/react";
+import { hasRole } from "../../../utils/roleCheck";
+import { AuthContext } from "../../../Providers/AuthProvider";
+import { useContext } from "react";import { Heading } from "@chakra-ui/react";
 import useDeleteRow from "../../DeleteRow";
 import DeleteButton from "../../DeleteButton";
 
@@ -29,6 +31,7 @@ const AnalyseChimiqueTable = () => {
     loading: deleteLoading,
     error: deleteError,
   } = useDeleteRow("http://127.0.0.1:8000/api/analyse_chimique", setData);
+  const info = useContext(AuthContext);
 
   // Fetch data from the API
   useEffect(() => {
@@ -73,14 +76,10 @@ const AnalyseChimiqueTable = () => {
     }
   };
 
-  const columns = [
+  let columns = [
+
     {
-      accessorKey: "finesse_2_32",
-      header: "2-32µm",
-      cell: EditableCell,
-    },
-    {
-      accessorKey: "finesse_40",
+      accessorKey: "finesse_45",
       header: ">45µm",
       cell: EditableCell,
     },
@@ -125,11 +124,6 @@ const AnalyseChimiqueTable = () => {
       cell: EditableCell,
     },
     {
-      accessorKey: "S2",
-      header: "S2-",
-      cell: EditableCell,
-    },
-    {
       accessorKey: "CaOl",
       header: "CaOl",
       cell: EditableCell,
@@ -153,6 +147,9 @@ const AnalyseChimiqueTable = () => {
     },
   ];
 
+  if (!hasRole(info, "super_admin") ) {
+    columns = columns.filter((col) => col.id !== "actions");
+  }
   const table = useReactTable({
     data,
     columns,

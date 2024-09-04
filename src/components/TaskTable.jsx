@@ -15,7 +15,7 @@ import DateCell from "./DateCell";
 import Filters from "./Filters";
 import SortIcon from "./icons/SortIcon";
 
-const columns = [
+let columns = [
   {
     accessorKey: "task",
     header: "Task",

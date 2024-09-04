@@ -7,6 +7,7 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [user, setUser] = useState(localStorage.getItem("user") || null);
+  console.log(user)
   useEffect(() => {
     if (token) {
       instance.defaults.headers.common["Authorization"] = "Bearer " + token;
@@ -28,7 +29,8 @@ const AuthProvider = ({ children }) => {
     }),
     [token, user]
   );
-
+  // console.log(user)
+console
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );

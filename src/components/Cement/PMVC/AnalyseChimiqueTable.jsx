@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import instance from "../../../api/api";
 // import { makeData, Person } from './makeData';
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, Heading } from "@chakra-ui/react";
 import { format } from "date-fns";
 import {
   // flexRender,
@@ -16,9 +16,10 @@ import {
 import EditableCell from "../../EditableCell";
 import DataTable from "../../DataTable";
 import Anchor from "./Anchor";
-import useDeleteRow from "../../DeleteRow";
+import { hasRole } from "../../../utils/roleCheck";
+import { AuthContext } from "../../../Providers/AuthProvider";
+import { useContext } from "react";import useDeleteRow from "../../DeleteRow";
 import DeleteButton from "../../DeleteButton";
-import { Heading } from "@chakra-ui/react";
 
 const AnalyseChimiqueTable = () => {
   const [data, setData] = useState([]);
@@ -29,6 +30,7 @@ const AnalyseChimiqueTable = () => {
     loading: deleteLoading,
     error: deleteError,
   } = useDeleteRow("http://127.0.0.1:8000/api/analyse_chimique", setData);
+  const info = useContext(AuthContext);
 
   // Fetch data from the API
   useEffect(() => {
@@ -37,7 +39,7 @@ const AnalyseChimiqueTable = () => {
         const response = await instance("get", "analyse_chimique");
 
         const filteredData = response.data.filter(
-          (item) => item.analyse.matiere.nom === "PERFECTO"
+          (item) => item.analyse.matiere.nom === "pmvc"
         );
         setData(filteredData);
         setLoading(false);
@@ -60,7 +62,6 @@ const AnalyseChimiqueTable = () => {
 
     try {
       const response = await instance("post", `analyse_chimique/${updatedRow.id}`, sendData);
-
       console.log("Update response:", response);
 
       setData((prevData) => {
@@ -73,25 +74,35 @@ const AnalyseChimiqueTable = () => {
     }
   };
 
-  const columns = [
+  let columns = [
     {
-      accessorKey: "finesse_2_32",
-      header: "2-32µm",
-      cell: EditableCell,
+      accessorKey: "analyse.date_gachage",
+      header: "Date Gachage",
+      size: 150,
     },
     {
-      accessorKey: "finesse_40",
+      accessorKey: "analyse.date_prelevement",
+      header: "Date Prelevement",
+      size: 150,
+    },
+    {
+      accessorKey: "analyse.destination.nom",
+      header: "Destination",
+      size: 150,
+    },
+    {
+      accessorKey: "analyse.point_echantillonage.nom",
+      header: "Point echantillonage",
+      size: 150,
+    },
+    {
+      accessorKey: "finesse_45",
       header: ">45µm",
       cell: EditableCell,
     },
     {
       accessorKey: "finesse_80",
       header: ">80µm",
-      cell: EditableCell,
-    },
-    {
-      accessorKey: "SSB",
-      header: "SSb",
       cell: EditableCell,
     },
     {
@@ -120,29 +131,9 @@ const AnalyseChimiqueTable = () => {
       cell: EditableCell,
     },
     {
-      accessorKey: "H41",
-      header: "H41",
-      cell: EditableCell,
-    },
-    {
-      accessorKey: "S2",
-      header: "S2-",
-      cell: EditableCell,
-    },
-    {
       accessorKey: "CaOl",
       header: "CaOl",
       cell: EditableCell,
-    },
-    {
-      accessorKey: "analyse.destination.nom",
-      header: "Destination",
-      size: 150,
-    },
-    {
-      accessorKey: "analyse.point_echantillonage.nom",
-      header: "Point echantillonage",
-      size: 150,
     },
     {
       id: "actions",
@@ -152,6 +143,10 @@ const AnalyseChimiqueTable = () => {
       ),
     },
   ];
+
+  if (!hasRole(info, "super_admin") ) {
+    columns = columns.filter((col) => col.id !== "actions");
+  }
   const table = useReactTable({
     data,
     columns,

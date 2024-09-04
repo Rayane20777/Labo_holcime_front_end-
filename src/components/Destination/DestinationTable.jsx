@@ -16,7 +16,7 @@ import AddDestination from "./AddDestination";
 import instance from "../../api/api"; 
 
 
-const columns = [
+let columns = [
   {
     accessorKey: "nom",
     header: "Nom",

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import instance from "../../../api/api";
 // import { makeData, Person } from './makeData';
-import { Box, Text, Heading } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import {
   // flexRender,
   getCoreRowModel,
@@ -15,8 +15,11 @@ import {
 import EditableCell from "../../EditableCell";
 import DataTable from "../../DataTable";
 import Anchor from "./Anchor";
-import useDeleteRow from "../../DeleteRow";
+import { hasRole } from "../../../utils/roleCheck";
+import { AuthContext } from "../../../Providers/AuthProvider";
+import { useContext } from "react";import useDeleteRow from "../../DeleteRow";
 import DeleteButton from "../../DeleteButton";
+import { Heading } from "@chakra-ui/react";
 
 const XrfTable = () => {
   const [data, setData] = useState([]);
@@ -27,6 +30,7 @@ const XrfTable = () => {
     loading: deleteLoading,
     error: deleteError,
   } = useDeleteRow("http://127.0.0.1:8000/api/xrf", setData);
+  const info = useContext(AuthContext);
 
   // Fetch data from the API
   useEffect(() => {
@@ -67,7 +71,27 @@ const XrfTable = () => {
     }
   };
 
-  const columns = [
+  let columns = [
+    {
+      accessorKey: "analyse.date_gachage",
+      header: "Date Gachage",
+      size: 150,
+    },
+    {
+      accessorKey: "analyse.date_prelevement",
+      header: "Date Prelevement",
+      size: 150,
+    },
+    {
+      accessorKey: "analyse.destination.nom",
+      header: "Destination",
+      size: 150,
+    },
+    {
+      accessorKey: "analyse.point_echantillonage.nom",
+      header: "Point echantillonage",
+      size: 150,
+    },
     {
       accessorKey: "SiO2",
       header: "SiO2",
@@ -114,16 +138,6 @@ const XrfTable = () => {
       cell: EditableCell,
     },
     {
-      accessorKey: "analyse.destination.nom",
-      header: "Destination",
-      size: 150,
-    },
-    {
-      accessorKey: "analyse.point_echantillonage.nom",
-      header: "Point echantillonage",
-      size: 150,
-    },
-    {
       id: "actions",
       header: "Actions",
       cell: ({ row }) => (
@@ -131,6 +145,10 @@ const XrfTable = () => {
       ),
     },
   ];
+
+  if (!hasRole(info, "super_admin") ) {
+    columns = columns.filter((col) => col.id !== "actions");
+  }
   const table = useReactTable({
     data,
     columns,
@@ -169,7 +187,6 @@ const XrfTable = () => {
         columnFilters={columnFilters}
         setColumnFilters={setColumnFilters}
       />
-
       {deleteLoading && <Text>Deleting...</Text>}
       {deleteError && <Text>Error deleting data: {deleteError.message}</Text>}
     </Box>

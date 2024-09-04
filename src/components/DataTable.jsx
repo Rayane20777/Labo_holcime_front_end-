@@ -2,14 +2,14 @@ import { Box, Text, Button, ButtonGroup, Icon } from "@chakra-ui/react";
 import { flexRender } from "@tanstack/react-table";
 import SortIcon from "./icons/SortIcon";
 import Filters from "./Cement/Filters";
-
+import "../style/App.css";
 const DataTable = ({ table, columnFilters, setColumnFilters }) => {
   return (
     <Box>
-      <Box
-        style={{
-          overflow: "scroll",
-        }}
+      <Box 
+className="large-2"
+      
+        
       >
         <Box className="table" w={table.getTotalSize()}>
           {table.getHeaderGroups().map((headerGroup) => (

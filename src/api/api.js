@@ -1,11 +1,9 @@
-
 import axios from "axios";
 
 const baseURL = "http://127.0.0.1:8000/api/";
 
 const instance = async (method, endpoint, data = {}, headers = {}) => {
   try {
-    console.log(data)
     const token = localStorage.getItem("token");
     const config = {
       method,
@@ -19,8 +17,15 @@ const instance = async (method, endpoint, data = {}, headers = {}) => {
     const response = await axios(config);
     return response;
   } catch (error) {
-    console.error(`Error ${method} ${endpoint}:`, error);
-    throw error;
+    if (error.response && error.response.status === 400) {
+      console.error(`Token expired or invalid for ${method} ${endpoint}`);
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      window.location.href = "/login";
+    } else {
+      console.error(`Error ${method} ${endpoint}:`, error);
+      throw error;
+    }
   }
 };
 

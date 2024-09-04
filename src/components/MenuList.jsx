@@ -1,5 +1,5 @@
 import { Menu } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   HomeOutlined,
   AppstoreOutlined,
@@ -8,9 +8,31 @@ import {
   LogoutOutlined,
   UserOutlined,
   ExperimentOutlined,
+  FilePdfOutlined 
 } from "@ant-design/icons";
+import instance from "../api/api";
+import { hasRole } from "../utils/roleCheck";
+import { AuthContext } from "../Providers/AuthProvider";
+import { useContext } from "react";
 
 const MenuList = ({ darkTheme }) => {
+  const info = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await instance("post", "logout");
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      navigate("/login");
+    } catch (error) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      navigate("/login");
+    }
+  };
+
   return (
     <Menu theme={darkTheme ? "dark" : "light"} className="menu-bar">
       <Menu.Item key="home" icon={<HomeOutlined />}>
@@ -21,13 +43,17 @@ const MenuList = ({ darkTheme }) => {
         <Link to="/matiere">Matiere</Link>
       </Menu.Item>
 
-      <Menu.Item key="destination" icon={<AreaChartOutlined />}>
-        <Link to="/destination">Destination</Link>
-      </Menu.Item>
+      {hasRole(info, "super_admin") && (
+        <Menu.Item key="destination" icon={<AreaChartOutlined />}>
+          <Link to="/destination">Destination</Link>
+        </Menu.Item>
+      )}
 
-      <Menu.Item key="point_echantillonage" icon={<PayCircleOutlined />}>
-        <Link to="/point_echantillonage">Point Echantillonage</Link>
-      </Menu.Item>
+      {hasRole(info, "super_admin") && (
+        <Menu.Item key="point_echantillonage" icon={<PayCircleOutlined />}>
+          <Link to="/point_echantillonage">Point Echantillonage</Link>
+        </Menu.Item>
+      )}
 
       <Menu.SubMenu key="Ciment" icon={<ExperimentOutlined />} title="Analyse">
         <Menu.Item title="CPZA55" key="CPZA55">
@@ -58,16 +84,32 @@ const MenuList = ({ darkTheme }) => {
           <Link to="/pmvc">PMVC</Link>
         </Menu.Item>
 
-        <Menu.Item title="CPJ35" key="CPJ35">
-          <Link to="/cpj35">CPJ35</Link>
+        <Menu.Item title="CPJ65" key="CPJ65">
+          <Link to="/CPJ65">CPJ65</Link>
         </Menu.Item>
       </Menu.SubMenu>
 
-      <Menu.Item title="Utilisateur" key="utilisateur" icon={<UserOutlined />}>
-        <Link to="/user">Utilisateur</Link>
-      </Menu.Item>
+      {hasRole(info, "super_admin") && (
+        <Menu.Item
+          title="pdf"
+          key="pdf"
+          icon={<FilePdfOutlined />}
+        >
+          <Link to="/pdf">PDF</Link>
+        </Menu.Item>
+      )}
 
-      <Menu.Item key="logout" icon={<LogoutOutlined />}>
+      {hasRole(info, "super_admin") && (
+        <Menu.Item
+          title="Utilisateur"
+          key="utilisateur"
+          icon={<UserOutlined />}
+        >
+          <Link to="/user">Utilisateur</Link>
+        </Menu.Item>
+      )}
+
+      <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={handleLogout}>
         Log Out
       </Menu.Item>
     </Menu>

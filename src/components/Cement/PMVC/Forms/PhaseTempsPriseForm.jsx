@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import instance from "../../../../api/api";
-import { Box, FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
+import {  Button } from "@chakra-ui/react";
 
 const PhaseGachageForm = ({ analyseId, onAdd }) => {
   const [formData, setFormData] = useState({
@@ -34,7 +34,7 @@ const PhaseGachageForm = ({ analyseId, onAdd }) => {
     console.log("formData:", formData);
 
     try {
-      const response = await instance.post(
+      const response = await instance("post",
         "phase_temps_prise",
         formData
       );
@@ -54,54 +54,93 @@ const PhaseGachageForm = ({ analyseId, onAdd }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Box mb={4}>
-        <FormControl mb={4}>
-          <FormLabel>Masse volumique</FormLabel>
-          <Input
-            name="mass_volumique"
-            value={formData.mass_volumique}
-            onChange={handleChange}
-          />
-        </FormControl>
-        <FormControl mb={4}>
-          <FormLabel>&gt;Temperature salle</FormLabel>
-          <Input
-            name="debut_de_prise"
-            value={formData.debut_de_prise}
-            onChange={handleChange}
-          />
-        </FormControl>
-        <FormControl mb={4}>
-          <FormLabel>&gt;Humidi te</FormLabel>
-          <Input
-            name="fin_de_prise"
-            value={formData.fin_de_prise}
-            onChange={handleChange}
-          />
-        </FormControl>
-        <FormControl mb={4}>
-          <FormLabel>p_prisme</FormLabel>
-          <Input
-            name="expention"
-            value={formData.expention}
-            onChange={handleChange}
-          />
-        </FormControl>
-        <FormControl mb={4}>
-          <FormLabel>Insoluble</FormLabel>
-          <Input
-            name="eau_gach"
-            value={formData.eau_gach}
-            onChange={handleChange}
-          />
-        </FormControl>
+    <form onSubmit={handleSubmit} className="form">
+    <div className="inputs_container">
+      <div className="half">
+        <div className="halfed">
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Masse volumique"
+              className="form__input"
+              id="mass_volumique"
+              name="mass_volumique"
+              value={formData.mass_volumique}
+              onChange={handleChange}
+            />
+            <label htmlFor="mass_volumique" className="form__label">
+              Masse volumique
+            </label>
+          </div>
 
-        <Button colorScheme="blue" type="submit">
-          Add Analyse Chimique
-        </Button>
-      </Box>
-    </form>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Début de prise"
+              className="form__input"
+              id="debut_de_prise"
+              name="debut_de_prise"
+              value={formData.debut_de_prise}
+              onChange={handleChange}
+            />
+            <label htmlFor="debut_de_prise" className="form__label">
+              Début de prise
+            </label>
+          </div>
+        </div>
+
+        <div className="halfed">
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Fin de prise"
+              className="form__input"
+              id="fin_de_prise"
+              name="fin_de_prise"
+              value={formData.fin_de_prise}
+              onChange={handleChange}
+            />
+            <label htmlFor="fin_de_prise" className="form__label">
+              Fin de prise
+            </label>
+          </div>
+
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Expention"
+              className="form__input"
+              id="expention"
+              name="expention"
+              value={formData.expention}
+              onChange={handleChange}
+            />
+            <label htmlFor="expention" className="form__label">
+              Expention
+            </label>
+          </div>
+        </div>
+      </div>
+      <div className="form-group">
+        <input
+          type="text"
+          placeholder="Eau gâchée"
+          className="form__input"
+          id="eau_gach"
+          name="eau_gach"
+          value={formData.eau_gach}
+          onChange={handleChange}
+        />
+        <label htmlFor="eau_gach" className="form__label">
+          Eau gâchée
+        </label>
+      </div>
+    </div>
+
+    <Button style={{ backgroundColor: "#b3ba80" }} type="submit">
+      Add Analyse Chimique
+    </Button>
+  </form>
   );
 };
 

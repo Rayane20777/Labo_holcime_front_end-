@@ -6,16 +6,17 @@ import Logo from  './components/Logo';
 import MenuList from  './components/MenuList';
 import ToggleThemeButton from  './components/ToggleThemeButton';
 // import { Box, Heading } from "@chakra-ui/react";
-import './App.css';
+import './style/App.css';
+import ProtectedRoute from './routes/ProtectedRoutes';
 
 // import Home from "./components/Home";
 import Matiere from "./components/Matiere/MatiereTable";
 import User from "./components/Utilisateur/User";
 import Destination from "./components/Destination/DestinationTable";
 import PointEchantillonage from "./components/PointEchantillonage/PointEchantillonageTable";
+import Pdf from "./components/Pdf/PdfTable";
 import Login from "./components/Auth/Login";
 import AuthProvider from "./Providers/AuthProvider";
-
 
 {/* ******************************************************************************************************************** */}
 import CPZA55 from "./components/Cement/CPZA55/AnalyseTable";
@@ -26,6 +27,7 @@ import CPZA55_Proportion from "./components/Cement/CPZA55/ProportionTable";
 import CPZA55_Physique from "./components/Cement/CPZA55/ResultatAnalysePhysiqueTable";
 import CPZA55_Xrf from "./components/Cement/CPZA55/XrfTable";
 import CPZA55_Xrd from "./components/Cement/CPZA55/XrdTable";
+import CPZA55_Lpee from "./components/Cement/CPZA55/LpeeTable";
 {/* ******************************************************************************************************************** */}
 
 
@@ -38,6 +40,7 @@ import PMES_Proportion from "./components/Cement/PMES/ProportionTable";
 import PMES_Physique from "./components/Cement/PMES/ResultatAnalysePhysiqueTable";
 import PMES_Xrf from "./components/Cement/PMES/XrfTable";
 import PMES_Xrd from "./components/Cement/PMES/XrdTable";
+import PMES_Lpee from "./components/Cement/PMES/LpeeTable";
 {/* ******************************************************************************************************************** */}
 
 
@@ -50,6 +53,7 @@ import PERFECTO_Proportion from "./components/Cement/PERFECTO/ProportionTable";
 import PERFECTO_Physique from "./components/Cement/PERFECTO/ResultatAnalysePhysiqueTable";
 import PERFECTO_Xrf from "./components/Cement/PERFECTO/XrfTable";
 import PERFECTO_Xrd from "./components/Cement/PERFECTO/XrdTable";
+import PERFECTO_Lpee from "./components/Cement/PERFECTO/LpeeTable";
 {/* ******************************************************************************************************************** */}
 
 
@@ -62,18 +66,20 @@ import PMVC_Proportion from "./components/Cement/PMVC/ProportionTable";
 import PMVC_Physique from "./components/Cement/PMVC/ResultatAnalysePhysiqueTable";
 import PMVC_Xrf from "./components/Cement/PMVC/XrfTable";
 import PMVC_Xrd from "./components/Cement/PMVC/XrdTable";
+import PMVC_Lpee from "./components/Cement/PMVC/LpeeTable";
 {/* ******************************************************************************************************************** */}
 
 
 {/* ******************************************************************************************************************** */}
-import CPJ35 from "./components/Cement/CPJ35/AnalyseTable";
-import CPJ35_Chimique from "./components/Cement/CPJ35/AnalyseChimiqueTable";
-import CPJ35_Gachage from "./components/Cement/CPJ35/PhaseGachageTable";
-import CPJ35_TempsPrise from "./components/Cement/CPJ35/PhaseTempsPriseTable";
-import CPJ35_Proportion from "./components/Cement/CPJ35/ProportionTable";
-import CPJ35_Physique from "./components/Cement/CPJ35/ResultatAnalysePhysiqueTable";
-import CPJ35_Xrf from "./components/Cement/CPJ35/XrfTable";
-import CPJ35_Xrd from "./components/Cement/CPJ35/XrdTable";
+import CPJ65 from "./components/Cement/CPJ65/AnalyseTable";
+import CPJ65_Chimique from "./components/Cement/CPJ65/AnalyseChimiqueTable";
+import CPJ65_Gachage from "./components/Cement/CPJ65/PhaseGachageTable";
+import CPJ65_TempsPrise from "./components/Cement/CPJ65/PhaseTempsPriseTable";
+import CPJ65_Proportion from "./components/Cement/CPJ65/ProportionTable";
+import CPJ65_Physique from "./components/Cement/CPJ65/ResultatAnalysePhysiqueTable";
+import CPJ65_Xrf from "./components/Cement/CPJ65/XrfTable";
+import CPJ65_Xrd from "./components/Cement/CPJ65/XrdTable";
+import CPJ65_Lpee from "./components/Cement/CPJ65/LpeeTable";
 {/* ******************************************************************************************************************** */}
 
 {/* ******************************************************************************************************************** */}
@@ -85,6 +91,7 @@ import J35_Proportion from "./components/Cement/J35/ProportionTable";
 import J35_Physique from "./components/Cement/J35/ResultatAnalysePhysiqueTable";
 import J35_Xrf from "./components/Cement/J35/XrfTable";
 import J35_Xrd from "./components/Cement/J35/XrdTable";
+import J35_Lpee from "./components/Cement/J35/LpeeTable";
 {/* ******************************************************************************************************************** */}
 
 {/* ******************************************************************************************************************** */}
@@ -96,6 +103,7 @@ import J45_Proportion from "./components/Cement/J45/ProportionTable";
 import J45_Physique from "./components/Cement/J45/ResultatAnalysePhysiqueTable";
 import J45_Xrf from "./components/Cement/J45/XrfTable";
 import J45_Xrd from "./components/Cement/J45/XrdTable";
+import J45_Lpee from "./components/Cement/J45/LpeeTable";
 {/* ******************************************************************************************************************** */}
 
 {/* ******************************************************************************************************************** */}
@@ -107,6 +115,7 @@ import J55_Proportion from "./components/Cement/J55/ProportionTable";
 import J55_Physique from "./components/Cement/J55/ResultatAnalysePhysiqueTable";
 import J55_Xrf from "./components/Cement/J55/XrfTable";
 import J55_Xrd from "./components/Cement/J55/XrdTable";
+import J55_Lpee from "./components/Cement/J55/LpeeTable";
 {/* ******************************************************************************************************************** */}
 
 
@@ -133,10 +142,14 @@ function App() {
     <Route path="/login" element={<Login />} />
     <Route path="/*"
             element={
+              <ProtectedRoute
+              element={
+                
+              
     <Layout >
-      <Sider collapsed={collapsed} collapsible trigger={null} theme={darkTheme ? 'dark' : 'light'} className='sidebar' >
+      <Sider  collapsed={collapsed} collapsible trigger={null} theme={darkTheme ? 'dark' : 'light'} className='sidebar' >
         <Logo />
-        <MenuList darkTheme = {darkTheme}/>
+        <MenuList  darkTheme = {darkTheme}/>
         <ToggleThemeButton darkTheme={darkTheme}  toggleTheme={toggleTheme }/>
       </Sider>
       <Layout
@@ -164,6 +177,7 @@ function App() {
                 <Route path="/destination" element={<Destination />} />
                 <Route path="/point_echantillonage" element={<PointEchantillonage />} />
                 <Route path="/user" element={<User />} />
+                <Route path="/pdf" element={<Pdf />} />
 {/* ******************************************************************************************************************** */}
                 <Route path="/pmes" element={<PMES />} />
                 <Route path="/pmes_chimique" element={<PMES_Chimique />} />
@@ -173,6 +187,7 @@ function App() {
                 <Route path="/pmes_physique" element={<PMES_Physique />} />
                 <Route path="/pmes_xrf" element={<PMES_Xrf />} />
                 <Route path="/pmes_xrd" element={<PMES_Xrd />} />
+                <Route path="/pmes_lpee" element={<PMES_Lpee />} />
 {/* ******************************************************************************************************************** */}
 
 {/* ******************************************************************************************************************** */}
@@ -184,6 +199,7 @@ function App() {
                 <Route path="/cpza55_physique" element={<CPZA55_Physique />} />
                 <Route path="/cpza55_xrf" element={<CPZA55_Xrf />} />
                 <Route path="/cpza55_xrd" element={<CPZA55_Xrd />} />
+                <Route path="/cpza55_lpee" element={<CPZA55_Lpee />} />
 {/* ******************************************************************************************************************** */}
 
 {/* ******************************************************************************************************************** */}
@@ -195,6 +211,7 @@ function App() {
                 <Route path="/perfecto_physique" element={<PERFECTO_Physique />} />
                 <Route path="/perfecto_xrf" element={<PERFECTO_Xrf />} />
                 <Route path="/perfecto_xrd" element={<PERFECTO_Xrd />} />
+                <Route path="/perfecto_lpee" element={<PERFECTO_Lpee />} />
 {/* ******************************************************************************************************************** */}
 
 {/* ******************************************************************************************************************** */}
@@ -206,17 +223,19 @@ function App() {
                 <Route path="/pmvc_physique" element={<PMVC_Physique />} />
                 <Route path="/pmvc_xrf" element={<PMVC_Xrf />} />
                 <Route path="/pmvc_xrd" element={<PMVC_Xrd />} />
+                <Route path="/pmvc_lpee" element={<PMVC_Lpee />} />
 {/* ******************************************************************************************************************** */}
                 
 {/* ******************************************************************************************************************** */}
-      <Route path="/cpj35" element={<CPJ35 />} />
-      <Route path="/cpj35_chimique" element={<CPJ35_Chimique />} />
-      <Route path="/cpj35_gachage" element={<CPJ35_Gachage />} />
-      <Route path="/cpj35_temps_prise" element={<CPJ35_TempsPrise />} />
-      <Route path="/cpj35_proportion" element={<CPJ35_Proportion />} />
-      <Route path="/cpj35_physique" element={<CPJ35_Physique />} />
-      <Route path="/cpj35_xrf" element={<CPJ35_Xrf />} />
-      <Route path="/cpj35_xrd" element={<CPJ35_Xrd />} />
+      <Route path="/CPJ65" element={<CPJ65 />} />
+      <Route path="/CPJ65_chimique" element={<CPJ65_Chimique />} />
+      <Route path="/CPJ65_gachage" element={<CPJ65_Gachage />} />
+      <Route path="/CPJ65_temps_prise" element={<CPJ65_TempsPrise />} />
+      <Route path="/CPJ65_proportion" element={<CPJ65_Proportion />} />
+      <Route path="/CPJ65_physique" element={<CPJ65_Physique />} />
+      <Route path="/CPJ65_xrf" element={<CPJ65_Xrf />} />
+      <Route path="/CPJ65_xrd" element={<CPJ65_Xrd />} />
+      <Route path="/CPJ65_lpee" element={<CPJ65_Lpee />} />
 {/* ******************************************************************************************************************** */}
                 
 {/* ******************************************************************************************************************** */}
@@ -228,6 +247,7 @@ function App() {
                 <Route path="/j35_physique" element={<J35_Physique />} />
                 <Route path="/j35_xrf" element={<J35_Xrf />} />
                 <Route path="/j35_xrd" element={<J35_Xrd />} />
+                <Route path="/j35_lpee" element={<J35_Lpee />} />
 {/* ******************************************************************************************************************** */}
 
 {/* ******************************************************************************************************************** */}
@@ -239,6 +259,7 @@ function App() {
                 <Route path="/j45_physique" element={<J45_Physique />} />
                 <Route path="/j45_xrf" element={<J45_Xrf />} />
                 <Route path="/j45_xrd" element={<J45_Xrd />} />
+                <Route path="/j45_lpee" element={<J45_Lpee />} />
 {/* ******************************************************************************************************************** */}
 
 {/* ******************************************************************************************************************** */}
@@ -250,6 +271,7 @@ function App() {
                 <Route path="/j55_physique" element={<J55_Physique />} />
                 <Route path="/j55_xrf" element={<J55_Xrf />} />
                 <Route path="/j55_xrd" element={<J55_Xrd />} />
+                <Route path="/j55_lpee" element={<J55_Lpee />} />
 {/* ******************************************************************************************************************** */}
                
                 </Routes>
@@ -258,11 +280,12 @@ function App() {
         </Layout>
       </Layout>
     </Layout>}
-          />
+         /> } />
         </Routes>
     
         </Router>
         </AuthProvider>
+        
   )
 }
 

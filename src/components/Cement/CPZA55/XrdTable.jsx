@@ -15,7 +15,9 @@ import {
 import EditableCell from "../../EditableCell";
 import DataTable from "../../DataTable";
 import Anchor from "./Anchor";
-import useDeleteRow from "../../DeleteRow";
+import { hasRole } from "../../../utils/roleCheck";
+import { AuthContext } from "../../../Providers/AuthProvider";
+import { useContext } from "react";import useDeleteRow from "../../DeleteRow";
 import DeleteButton from "../../DeleteButton";
 
 const XrdTable = () => {
@@ -27,6 +29,7 @@ const XrdTable = () => {
     loading: deleteLoading,
     error: deleteError,
   } = useDeleteRow("http://127.0.0.1:8000/api/xrd", setData);
+  const info = useContext(AuthContext);
 
   // Fetch data from the API
   useEffect(() => {
@@ -67,7 +70,7 @@ const XrdTable = () => {
     }
   };
 
-  const columns = [
+  let columns = [
     {
       accessorKey: "GOF",
       header: "GOF",
@@ -327,6 +330,9 @@ const XrdTable = () => {
     },
   ];
 
+  if (!hasRole(info, "super_admin") ) {
+    columns = columns.filter((col) => col.id !== "actions");
+  }
   const table = useReactTable({
     data,
     columns,

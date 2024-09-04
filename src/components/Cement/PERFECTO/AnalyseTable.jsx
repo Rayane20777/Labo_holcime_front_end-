@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import instance from "../../../api/api";
-import { Box, Text, Heading, Button } from "@chakra-ui/react";
+import { Box, Text, Button } from "@chakra-ui/react";
 import { format } from "date-fns";
 import {
   getCoreRowModel,
@@ -12,6 +12,9 @@ import {
 import DateCell from "../../DateCell";
 import DataTable from "../../DataTable";
 import Anchor from "./Anchor";
+import { hasRole } from "../../../utils/roleCheck";
+import { AuthContext } from "../../../Providers/AuthProvider";
+import { Heading } from "@chakra-ui/react";
 import useDeleteRow from "../../DeleteRow";
 import DeleteButton from "../../DeleteButton";
 import PlusButton from "../../PlusButton";
@@ -30,6 +33,7 @@ const AnalyseTable = () => {
   const [showForm, setShowForm] = useState(false);
   const [showFormsContainer, setShowFormsContainer] = useState(false); // State for the forms container
   const [selectedAnalyseId, setSelectedAnalyseId] = useState(null); // State to hold selected analyse ID
+  const info = useContext(AuthContext);
 
   // Fetch data from the API
   useEffect(() => {
@@ -60,7 +64,11 @@ const AnalyseTable = () => {
     const sendData = { ...updatedRow };
 
     try {
-      const response = await instance("post", `analyse/${updatedRow.id}`, sendData);
+      const response = await instance(
+        "post",
+        `analyse/${updatedRow.id}`,
+        sendData
+      );
       console.log("Update response:", response);
 
       setData((prevData) => {
@@ -76,7 +84,12 @@ const AnalyseTable = () => {
     setData((prevData) => [newAnalyse, ...prevData]);
     setShowForm(false);
   };
-  const columns = [
+
+  const handleCloseFormsContainer = () => {
+    setShowFormsContainer(false);
+    setSelectedAnalyseId(null);
+  };
+  let columns = [
     {
       accessorKey: "date_prelevement",
       header: "Date prelevement",
@@ -112,7 +125,9 @@ const AnalyseTable = () => {
               justifyContent: "space-evenly",
             }}
           >
-            <DeleteButton onClick={() => deleteRow(row.index, data)} />
+            {hasRole(info, "super_admin") && (
+              <DeleteButton onClick={() => deleteRow(row.index, data)} />
+            )}{" "}
             <PlusButton
               onClick={() => {
                 setShowFormsContainer(!showFormsContainer);
@@ -129,6 +144,7 @@ const AnalyseTable = () => {
     },
   ];
 
+ 
   const table = useReactTable({
     data,
     columns,
@@ -162,10 +178,18 @@ const AnalyseTable = () => {
         PERFECTO - Analyse
       </Heading>
       <Anchor />
-      <Button colorScheme="blue" mb={4} onClick={() => setShowForm(!showForm)}>
+  <Button
+        style={{ backgroundColor: "#3f6212" }}
+        mb={4}
+        onClick={() => setShowForm(!showForm)}
+      >
         {showForm ? "Cancel" : "Add New Analyse"}
       </Button>
       {showForm && <AnalyseForm onAdd={addAnalyse} />}
+      {showFormsContainer && (
+<FormsContainer analyseId={selectedAnalyseId}
+      onClose={handleCloseFormsContainer}
+      />      )}{" "}
       <DataTable
         table={table}
         columnFilters={columnFilters}
@@ -173,9 +197,6 @@ const AnalyseTable = () => {
       />
       {deleteLoading && <Text>Deleting...</Text>}
       {deleteError && <Text>Error deleting data: {deleteError.message}</Text>}
-      {showFormsContainer && (
-        <FormsContainer analyseId={selectedAnalyseId} />
-      )}{" "}
     </Box>
   );
 };
